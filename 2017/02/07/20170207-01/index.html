@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="golang,mac," />
+  <meta name="keywords" content="python,java," />
 
 
 
@@ -87,16 +87,16 @@
 
 
 
-<meta name="description" content="1.首先安装brewbrew是mac上的强大的包管理工具，类似ubuntu的apt-get以及centos的yum，属于mac上必装的软件。1234#在终端输入命令ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;#安装后更新下brew update">
+<meta name="description" content="python作为一个简洁的语言，在作为工具、监控以及运维等方面的使用上的确令人耳目一新。于是尝试使用python做一个简陋的javaBean生成工具，目前很多人喜欢在数据库表命名的时候采用underline的方式如”xx_xx_table”，而javabean的命名通常为camel方式，如”myBean”。下面看看python能做些什么。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mac下安装golang">
-<meta property="og:url" content="https://guankai.github.io/2017/02/07/golang/index.html">
+<meta property="og:title" content="python生成javabean">
+<meta property="og:url" content="https://guankai.github.io/2017/02/07/20170207-01/index.html">
 <meta property="og:site_name" content="patrick">
-<meta property="og:description" content="1.首先安装brewbrew是mac上的强大的包管理工具，类似ubuntu的apt-get以及centos的yum，属于mac上必装的软件。1234#在终端输入命令ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;#安装后更新下brew update">
-<meta property="og:updated_time" content="2017-02-07T09:14:25.000Z">
+<meta property="og:description" content="python作为一个简洁的语言，在作为工具、监控以及运维等方面的使用上的确令人耳目一新。于是尝试使用python做一个简陋的javaBean生成工具，目前很多人喜欢在数据库表命名的时候采用underline的方式如”xx_xx_table”，而javabean的命名通常为camel方式，如”myBean”。下面看看python能做些什么。">
+<meta property="og:updated_time" content="2017-02-07T09:59:41.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mac下安装golang">
-<meta name="twitter:description" content="1.首先安装brewbrew是mac上的强大的包管理工具，类似ubuntu的apt-get以及centos的yum，属于mac上必装的软件。1234#在终端输入命令ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;#安装后更新下brew update">
+<meta name="twitter:title" content="python生成javabean">
+<meta name="twitter:description" content="python作为一个简洁的语言，在作为工具、监控以及运维等方面的使用上的确令人耳目一新。于是尝试使用python做一个简陋的javaBean生成工具，目前很多人喜欢在数据库表命名的时候采用underline的方式如”xx_xx_table”，而javabean的命名通常为camel方式，如”myBean”。下面看看python能做些什么。">
 
 
 
@@ -124,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="https://guankai.github.io/2017/02/07/golang/"/>
+  <link rel="canonical" href="https://guankai.github.io/2017/02/07/20170207-01/"/>
 
 
 
 
 
-  <title> Mac下安装golang | patrick </title>
+  <title> python生成javabean | patrick </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -267,7 +267,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://guankai.github.io/2017/02/07/golang/">
+  <link itemprop="mainEntityOfPage" href="https://guankai.github.io/2017/02/07/20170207-01/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="patrick guan">
@@ -291,7 +291,7 @@
             
             
               
-                Mac下安装golang
+                python生成javabean
               
             
           </h1>
@@ -306,7 +306,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-07T16:29:31+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-07T17:58:12+08:00">
                 2017-02-07
               </time>
             
@@ -364,13 +364,20 @@
       
 
       
-        <p>1.首先安装<code>brew</code><br><code>brew</code>是mac上的强大的包管理工具，类似ubuntu的<code>apt-get</code>以及centos的<code>yum</code>，属于mac上必装的软件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#在终端输入命令</span></div><div class="line">ruby <span class="_">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></div><div class="line"><span class="comment">#安装后更新下</span></div><div class="line">brew update</div></pre></td></tr></table></figure></p>
+        <p>python作为一个简洁的语言，在作为工具、监控以及运维等方面的使用上的确令人耳目一新。于是尝试使用python做一个简陋的javaBean生成工具，目前很多人喜欢在数据库表命名的时候采用underline的方式如”xx_xx_table”，而javabean的命名通常为camel方式，如”myBean”。下面看看python能做些什么。</p>
 <a id="more"></a>
-<p>2.开始安装go<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">brew </span><span class="keyword">install </span>go</div></pre></td></tr></table></figure></p>
-<p>3.设置go的环境变量<br>在用户根目录下<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">vi</span> ~/.bash_profile</div></pre></td></tr></table></figure></p>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 设置goroot</span></div><div class="line">export PATH=<span class="variable">$PATH</span><span class="symbol">:/usr/local/opt/go/libexec/bin</span></div><div class="line"><span class="comment"># 设置gopath</span></div><div class="line">export GOPATH=<span class="regexp">/Users/yourname</span><span class="regexp">/go</span></div></pre></td></tr></table></figure>
-<p>使设置生效<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">source</span> .bash_profile</div></pre></td></tr></table></figure></p>
-<p>4.如果使用了zsh，需要将以上的设置在~/.zshrc中再写一遍即可。</p>
+<blockquote>
+<p>首先需要连接到数据库，获取生成javabean对应数据库表的信息</p>
+</blockquote>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">import pymysql</div><div class="line"></div><div class="line">conn = pymysql.connect(host=<span class="variable">_host</span>,user=<span class="variable">_user</span>,passwd=<span class="variable">_pass</span>,db=<span class="variable">_sid</span>,port=<span class="number">3306</span>,charset=<span class="string">'utf8'</span>)</div><div class="line"></div><div class="line">cur = conn.cursor()</div><div class="line"></div><div class="line">sql =<span class="string">'select * from '</span>+ <span class="variable">_tableName</span></div><div class="line"></div><div class="line">cur.execute(sql)</div><div class="line"></div><div class="line">desc = cur.description</div></pre></td></tr></table></figure>
+<p>从cur.description可以获取数据库表的字段名称以及类型，字段类型使用数字进行标注，以下是字段类型对照关系<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span>=&gt;<span class="string">'tinyint'</span>, </div><div class="line"><span class="number">2</span>=&gt;<span class="string">'smallint'</span>, </div><div class="line"><span class="number">3</span>=&gt;<span class="string">'int'</span>, </div><div class="line"><span class="number">4</span>=&gt;<span class="string">'float'</span>, </div><div class="line"><span class="number">5</span>=&gt;<span class="string">'double'</span>, </div><div class="line"><span class="number">7</span>=&gt;<span class="string">'timestamp'</span>, </div><div class="line"><span class="number">8</span>=&gt;<span class="string">'bigint'</span>, </div><div class="line"><span class="number">9</span>=&gt;<span class="string">'mediumint'</span>, </div><div class="line"><span class="number">10</span>=&gt;<span class="string">'date'</span>, </div><div class="line"><span class="number">11</span>=&gt;<span class="string">'time'</span>, </div><div class="line"><span class="number">12</span>=&gt;<span class="string">'datetime'</span>, </div><div class="line"><span class="number">13</span>=&gt;<span class="string">'year'</span>, </div><div class="line"><span class="number">16</span>=&gt;<span class="string">'bit'</span>, </div><div class="line"><span class="comment">//252 is currently mapped to all text and blob types (MySQL 5.0.51a) </span></div><div class="line"><span class="number">253</span>=&gt;<span class="string">'varchar'</span>, </div><div class="line"><span class="number">254</span>=&gt;<span class="string">'char'</span>, </div><div class="line"><span class="number">246</span>=&gt;<span class="string">'decimal'</span></div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>有了以上的这些信息，剩下的事情就简单了。只需要把字段转成camel方式即可</p>
+</blockquote>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">underline_to_camel</span><span class="params">(underline_format)</span></span>:</div><div class="line">    camel_format = <span class="string">''</span></div><div class="line">    <span class="keyword">if</span> isinstance(underline_format, str):</div><div class="line">            <span class="keyword">for</span> _s<span class="number">_</span> <span class="keyword">in</span> underline_format.split(<span class="string">'_'</span>):</div><div class="line">                camel_format += _s<span class="number">_</span>.capitalize()</div><div class="line">    <span class="keyword">return</span> camel_format</div></pre></td></tr></table></figure>
+<p>上面这个函数转出来的效果所有首字母大写。这个可以在循环里面单独处理，或者对已经生成的camel字符串处理即可<br><figure class="highlight accesslog"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">newCamel = camel<span class="string">[0]</span>.lower() + camel<span class="string">[1:]</span></div></pre></td></tr></table></figure></p>
+<p>拼装javabean。<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> <span class="built_in">line</span> <span class="keyword">in</span> desc:</div><div class="line">        <span class="comment">#根据mysql类型以及自己的需要对dateType进行转换</span></div><div class="line">        <span class="keyword">if</span> <span class="built_in">line</span>[<span class="number">1</span>] <span class="keyword">in</span> (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">246</span>):</div><div class="line">            dataType = <span class="string">'int'</span></div><div class="line">        elif <span class="built_in">line</span>[<span class="number">1</span>] <span class="keyword">in</span> (<span class="number">4</span>, <span class="number">5</span>):</div><div class="line">            dataType = <span class="string">'double'</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            dataType = <span class="string">'String'</span></div><div class="line">        <span class="comment">#转换camel写法，并拼装javabean</span></div><div class="line">        beanName = underline_to_camel(<span class="built_in">line</span>[<span class="number">0</span>], <span class="string">'V'</span>)</div><div class="line">        funcName = underline_to_camel(<span class="built_in">line</span>[<span class="number">0</span>], <span class="string">'F'</span>)</div><div class="line">        lineStr = <span class="string">"    /** \n"</span></div><div class="line">        lineStr += <span class="string">"    * 字段"</span> + beanName + <span class="string">"\n"</span></div><div class="line">        lineStr += <span class="string">"    */\n"</span></div><div class="line">        lineStr += <span class="string">"    private "</span> + dataType + <span class="string">" "</span> + beanName + <span class="string">";\n"</span></div><div class="line">        lineStr += <span class="string">"    public "</span> + dataType + <span class="string">" get"</span> + funcName + <span class="string">"() &#123; return "</span> + beanName + <span class="string">"; &#125;\n"</span></div><div class="line">        lineStr += <span class="string">"    public void set"</span> + funcName + <span class="string">"("</span> + dataType + <span class="string">" "</span> + beanName + <span class="string">") &#123; this."</span> + beanName + <span class="string">" = "</span> + beanName + <span class="string">"; &#125;\n"</span></div><div class="line">        beanList.append(lineStr)</div></pre></td></tr></table></figure></p>
+<p>拼装完成后，写文件，关闭数据库连接就完成了这个乞丐版的javabean生成工具了。依次类推还可以生成DAO,XML</p>
 
       
     </div>
@@ -394,9 +401,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/golang/" rel="tag"># golang</a>
+            <a href="/tags/python/" rel="tag"># python</a>
           
-            <a href="/tags/mac/" rel="tag"># mac</a>
+            <a href="/tags/java/" rel="tag"># java</a>
           
         </div>
       
@@ -409,15 +416,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/02/07/golang/" rel="next" title="Mac下安装golang">
+                <i class="fa fa-chevron-left"></i> Mac下安装golang
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/02/07/20170207-01/" rel="prev" title="python生成javabean">
-                python生成javabean <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
