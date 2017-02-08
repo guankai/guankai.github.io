@@ -45,7 +45,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="golang,mac," />
+  <meta name="keywords" content="openstack,nodejs," />
 
 
 
@@ -61,16 +61,22 @@
 
 
 
-<meta name="description" content="1.首先安装brewbrew是mac上的强大的包管理工具，类似ubuntu的apt-get以及centos的yum，属于mac上必装的软件。1234#在终端输入命令ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;#安装后更新下brew update">
+<meta name="description" content="pkgcloud作为openstack的官方指定nodejs的SDK，可以支持M版本的大部分api，下面主要说一下在认证（keystone）方面针对v2和v3两个版本差异
+v2openstack官方提供了一个通过curl的方法，如下
+1234  $ curl -s -X POST $OS_AUTH_URL/tokens \  -H &quot;Content-Type: application/json&quot;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mac下安装golang">
-<meta property="og:url" content="https://guankai.github.io/2017/02/07/golang/index.html">
+<meta property="og:title" content="20170208-01">
+<meta property="og:url" content="https://guankai.github.io/2017/02/08/20170208-01/index.html">
 <meta property="og:site_name" content="镜花水月">
-<meta property="og:description" content="1.首先安装brewbrew是mac上的强大的包管理工具，类似ubuntu的apt-get以及centos的yum，属于mac上必装的软件。1234#在终端输入命令ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;#安装后更新下brew update">
-<meta property="og:updated_time" content="2017-02-07T09:14:25.000Z">
+<meta property="og:description" content="pkgcloud作为openstack的官方指定nodejs的SDK，可以支持M版本的大部分api，下面主要说一下在认证（keystone）方面针对v2和v3两个版本差异
+v2openstack官方提供了一个通过curl的方法，如下
+1234  $ curl -s -X POST $OS_AUTH_URL/tokens \  -H &quot;Content-Type: application/json&quot;">
+<meta property="og:updated_time" content="2017-02-08T04:48:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mac下安装golang">
-<meta name="twitter:description" content="1.首先安装brewbrew是mac上的强大的包管理工具，类似ubuntu的apt-get以及centos的yum，属于mac上必装的软件。1234#在终端输入命令ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;#安装后更新下brew update">
+<meta name="twitter:title" content="20170208-01">
+<meta name="twitter:description" content="pkgcloud作为openstack的官方指定nodejs的SDK，可以支持M版本的大部分api，下面主要说一下在认证（keystone）方面针对v2和v3两个版本差异
+v2openstack官方提供了一个通过curl的方法，如下
+1234  $ curl -s -X POST $OS_AUTH_URL/tokens \  -H &quot;Content-Type: application/json&quot;">
 
 
 
@@ -98,13 +104,13 @@
 
 
 
-  <link rel="canonical" href="https://guankai.github.io/2017/02/07/golang/"/>
+  <link rel="canonical" href="https://guankai.github.io/2017/02/08/20170208-01/"/>
 
 
 
 
 
-  <title> Mac下安装golang | 镜花水月 </title>
+  <title> 20170208-01 | 镜花水月 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -241,7 +247,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://guankai.github.io/2017/02/07/golang/">
+  <link itemprop="mainEntityOfPage" href="https://guankai.github.io/2017/02/08/20170208-01/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="patrick guan">
@@ -265,7 +271,7 @@
             
             
               
-                Mac下安装golang
+                20170208-01
               
             
           </h1>
@@ -280,8 +286,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-07T16:29:31+08:00">
-                2017-02-07
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-08T12:45:26+08:00">
+                2017-02-08
               </time>
             
 
@@ -303,8 +309,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/语言学习/" itemprop="url" rel="index">
-                    <span itemprop="name">语言学习</span>
+                  <a href="/categories/云计算/" itemprop="url" rel="index">
+                    <span itemprop="name">云计算</span>
                   </a>
                 </span>
 
@@ -338,13 +344,19 @@
       
 
       
-        <p>1.首先安装<code>brew</code><br><code>brew</code>是mac上的强大的包管理工具，类似ubuntu的<code>apt-get</code>以及centos的<code>yum</code>，属于mac上必装的软件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#在终端输入命令</span></div><div class="line">ruby <span class="_">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></div><div class="line"><span class="comment">#安装后更新下</span></div><div class="line">brew update</div></pre></td></tr></table></figure></p>
+        <p>pkgcloud作为openstack的官方指定nodejs的SDK，可以支持M版本的大部分api，下面主要说一下在认证（keystone）方面针对v2和v3两个版本差异</p>
+<h3 id="v2"><a href="#v2" class="headerlink" title="v2"></a>v2</h3><p>openstack官方提供了一个通过curl的方法，如下</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">  $ curl -s -X <span class="keyword">POST</span> <span class="variable">$OS_AUTH_URL</span>/tokens \</div><div class="line">  -<span class="keyword">H</span> <span class="string">"Content-Type: application/json"</span> \</div><div class="line">  -<span class="keyword">d</span> '&#123;<span class="string">"auth"</span>: &#123;<span class="string">"tenantName"</span>: <span class="string">"'"</span><span class="variable">$OS_PROJECT_NAME</span><span class="string">"'"</span>, <span class="string">"passwordCredentials"</span>: &#123;<span class="string">"username"</span>: <span class="string">"'"</span><span class="variable">$OS_USERNAME</span><span class="string">"'"</span>, <span class="string">"password"</span>: <span class="string">"'"</span><span class="variable">$OS_PASSWORD</span><span class="string">"'"</span>&#125;&#125;&#125;' \</div><div class="line">  | python -<span class="keyword">m</span> json.tool</div></pre></td></tr></table></figure>
 <a id="more"></a>
-<p>2.开始安装go<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">brew </span><span class="keyword">install </span>go</div></pre></td></tr></table></figure></p>
-<p>3.设置go的环境变量<br>在用户根目录下<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">vi</span> ~/.bash_profile</div></pre></td></tr></table></figure></p>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 设置goroot</span></div><div class="line">export PATH=<span class="variable">$PATH</span><span class="symbol">:/usr/local/opt/go/libexec/bin</span></div><div class="line"><span class="comment"># 设置gopath</span></div><div class="line">export GOPATH=<span class="regexp">/Users/yourname</span><span class="regexp">/go</span></div></pre></td></tr></table></figure>
-<p>使设置生效<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">source</span> .bash_profile</div></pre></td></tr></table></figure></p>
-<p>4.如果使用了zsh，需要将以上的设置在~/.zshrc中再写一遍即可。</p>
+<p>其中如果没有对应的project，可以不用填写tenantName，后续的操作可以使用response中返回的token作为请求参数，注意过期日期即可。</p>
+<p>pkgcloud中对应的方法如下<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> pkgcloud = <span class="built_in">require</span>(<span class="string">'pkgcloud'</span>);</div><div class="line"><span class="keyword">var</span> cc = pkgcloud.compute.createClient(&#123;</div><div class="line">    <span class="attr">provider</span>: <span class="string">'openstack'</span>, <span class="comment">// required</span></div><div class="line">    username: <span class="string">'$user_name'</span>, <span class="comment">// required</span></div><div class="line">    password: <span class="string">'$user_pass'</span>, <span class="comment">// required</span></div><div class="line">    region: <span class="string">'RegionOne'</span>, <span class="comment">//在开发阶段，需要将这个设置为RegionOne</span></div><div class="line">    authUrl: <span class="string">'$auth_url'</span> <span class="comment">// required</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>获取的cc对象可以进行后续的操作，例如cc.getServers()等</p>
+<h3 id="v3"><a href="#v3" class="headerlink" title="v3"></a>v3</h3><p>在v3版本中，对应的参数结构发生了变化,官方提供的curl方法如下<br><figure class="highlight julia"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">curl -s -X POST $auth_url/v3/auth/tokens \</div><div class="line">  -H <span class="string">"Content-Type: application/json"</span> \</div><div class="line">  -d '&#123;<span class="string">"auth"</span>: &#123;</div><div class="line">        <span class="string">"identity"</span>: &#123;</div><div class="line">            <span class="string">"methods"</span>: [</div><div class="line">                <span class="string">"password"</span></div><div class="line">            ],</div><div class="line">            <span class="string">"password"</span>: &#123;</div><div class="line">                <span class="string">"user"</span>: &#123;</div><div class="line">                    <span class="string">"name"</span>: <span class="string">"<span class="variable">$user_name</span>"</span>,</div><div class="line">                    <span class="string">"domain"</span>: &#123;</div><div class="line">                        <span class="string">"name"</span>: <span class="string">"Default"</span></div><div class="line">                    &#125;,</div><div class="line">                    <span class="string">"password"</span>: <span class="string">"<span class="variable">$user_pass</span>"</span></div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;&#125;' \</div><div class="line">  | python3 -m json.tool</div></pre></td></tr></table></figure></p>
+<p>在请求的参数中，多了一个domain的key，此处填写’Default’即可</p>
+<p>pkgcloud对应方法如下，主要需要添加keystoneAuthVersion 设置为v3，同时设置tenantId和domainId<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> pkgcloud = <span class="built_in">require</span>(<span class="string">'pkgcloud'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> cc = pkgcloud.compute.createClient(&#123;</div><div class="line">    <span class="attr">provider</span>: <span class="string">'openstack'</span>, <span class="comment">// required</span></div><div class="line">    username: <span class="string">'$user_name'</span>, <span class="comment">// required</span></div><div class="line">    password: <span class="string">'$user_pass'</span>, <span class="comment">// required</span></div><div class="line">    region: <span class="string">'RegionOne'</span>,</div><div class="line">    <span class="attr">keystoneAuthVersion</span>: <span class="string">'v3'</span>,</div><div class="line">    <span class="attr">domainId</span>: <span class="string">'Default'</span>,</div><div class="line">    <span class="attr">tenantId</span>: <span class="string">'fc6ac8c46d8147fd9ffa7a32e373ff9a'</span>,</div><div class="line">    <span class="attr">domainName</span>: <span class="string">'Default'</span>,</div><div class="line">    <span class="attr">authUrl</span>: <span class="string">'$auth_url'</span> <span class="comment">// required</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>目前这个sdk还在完善阶段，很多的东西都没有在wiki和doc上体现，需要对着openstack的API一点点的排查，需要做的工作还很多呀。</p>
+</blockquote>
 
       
     </div>
@@ -368,9 +380,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/golang/" rel="tag"># golang</a>
+            <a href="/tags/openstack/" rel="tag"># openstack</a>
           
-            <a href="/tags/mac/" rel="tag"># mac</a>
+            <a href="/tags/nodejs/" rel="tag"># nodejs</a>
           
         </div>
       
@@ -383,15 +395,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/02/07/20170207-01/" rel="next" title="python生成javabean">
+                <i class="fa fa-chevron-left"></i> python生成javabean
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/02/07/20170207-01/" rel="prev" title="python生成javabean">
-                python生成javabean <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -438,8 +450,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -515,6 +536,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#v2"><span class="nav-number">1.</span> <span class="nav-text">v2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#v3"><span class="nav-number">2.</span> <span class="nav-text">v3</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
