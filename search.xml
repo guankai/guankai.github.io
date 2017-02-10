@@ -30,13 +30,6 @@
     </entry>
 
     
-    <entry>
-      <title><![CDATA[Mac下安装golang]]></title>
-      <url>%2F2017%2F02%2F07%2Fgolang%2F</url>
-      <content type="text"><![CDATA[1.首先安装brewbrew是mac上的强大的包管理工具，类似ubuntu的apt-get以及centos的yum，属于mac上必装的软件。1234#在终端输入命令ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"#安装后更新下brew update 2.开始安装go1brew install go 3.设置go的环境变量在用户根目录下1vi ~/.bash_profile 1234# 设置gorootexport PATH=$PATH:/usr/local/opt/go/libexec/bin# 设置gopathexport GOPATH=/Users/yourname/go 使设置生效1source .bash_profile 4.如果使用了zsh，需要将以上的设置在~/.zshrc中再写一遍即可。]]></content>
-    </entry>
-
-    
   
   
 </search>
