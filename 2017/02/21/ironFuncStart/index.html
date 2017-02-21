@@ -45,7 +45,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="openstack,nodejs," />
+  <meta name="keywords" content="golang,serverless," />
 
 
 
@@ -61,22 +61,30 @@
 
 
 
-<meta name="description" content="pkgcloud作为openstack的官方指定nodejs的SDK，可以支持M版本的大部分api，下面主要说一下在认证（keystone）方面针对v2和v3两个版本差异
-v2openstack官方提供了一个通过curl的方法，如下
-1234  $ curl -s -X POST $OS_AUTH_URL/tokens \  -H &quot;Content-Type: application/json&quot;">
+<meta name="description" content="serverless
+Serverless is a new paradigm in computing that enables simplicity, efficiency and scalability for both developers and operators
+
+serverless对于开发者以及运营人员都会带来不小的收益：
+开发者：1.无需再关心服务器的管理，只需要上传自己的代码">
 <meta property="og:type" content="article">
-<meta property="og:title" content="openstack和pkgcloud的认证">
-<meta property="og:url" content="https://guankai.github.io/2017/02/08/20170208-01/index.html">
+<meta property="og:title" content="iron-functions初体验">
+<meta property="og:url" content="https://guankai.github.io/2017/02/21/ironFuncStart/index.html">
 <meta property="og:site_name" content="镜花水月">
-<meta property="og:description" content="pkgcloud作为openstack的官方指定nodejs的SDK，可以支持M版本的大部分api，下面主要说一下在认证（keystone）方面针对v2和v3两个版本差异
-v2openstack官方提供了一个通过curl的方法，如下
-1234  $ curl -s -X POST $OS_AUTH_URL/tokens \  -H &quot;Content-Type: application/json&quot;">
-<meta property="og:updated_time" content="2017-02-08T04:49:24.000Z">
+<meta property="og:description" content="serverless
+Serverless is a new paradigm in computing that enables simplicity, efficiency and scalability for both developers and operators
+
+serverless对于开发者以及运营人员都会带来不小的收益：
+开发者：1.无需再关心服务器的管理，只需要上传自己的代码">
+<meta property="og:image" content="http://ol37p4zz4.bkt.clouddn.com/20170221148766742466803.png">
+<meta property="og:updated_time" content="2017-02-21T09:03:53.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="openstack和pkgcloud的认证">
-<meta name="twitter:description" content="pkgcloud作为openstack的官方指定nodejs的SDK，可以支持M版本的大部分api，下面主要说一下在认证（keystone）方面针对v2和v3两个版本差异
-v2openstack官方提供了一个通过curl的方法，如下
-1234  $ curl -s -X POST $OS_AUTH_URL/tokens \  -H &quot;Content-Type: application/json&quot;">
+<meta name="twitter:title" content="iron-functions初体验">
+<meta name="twitter:description" content="serverless
+Serverless is a new paradigm in computing that enables simplicity, efficiency and scalability for both developers and operators
+
+serverless对于开发者以及运营人员都会带来不小的收益：
+开发者：1.无需再关心服务器的管理，只需要上传自己的代码">
+<meta name="twitter:image" content="http://ol37p4zz4.bkt.clouddn.com/20170221148766742466803.png">
 
 
 
@@ -104,13 +112,13 @@ v2openstack官方提供了一个通过curl的方法，如下
 
 
 
-  <link rel="canonical" href="https://guankai.github.io/2017/02/08/20170208-01/"/>
+  <link rel="canonical" href="https://guankai.github.io/2017/02/21/ironFuncStart/"/>
 
 
 
 
 
-  <title> openstack和pkgcloud的认证 | 镜花水月 </title>
+  <title> iron-functions初体验 | 镜花水月 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -270,7 +278,7 @@ v2openstack官方提供了一个通过curl的方法，如下
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://guankai.github.io/2017/02/08/20170208-01/">
+  <link itemprop="mainEntityOfPage" href="https://guankai.github.io/2017/02/21/ironFuncStart/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="patrick guan">
@@ -294,7 +302,7 @@ v2openstack官方提供了一个通过curl的方法，如下
             
             
               
-                openstack和pkgcloud的认证
+                iron-functions初体验
               
             
           </h1>
@@ -309,8 +317,8 @@ v2openstack官方提供了一个通过curl的方法，如下
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-08T12:45:26+08:00">
-                2017-02-08
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-21T13:21:10+08:00">
+                2017-02-21
               </time>
             
 
@@ -350,8 +358,8 @@ v2openstack官方提供了一个通过curl的方法，如下
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/02/08/20170208-01/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/08/20170208-01/" itemprop="commentCount"></span>
+                <a href="/2017/02/21/ironFuncStart/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/21/ironFuncStart/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -377,19 +385,38 @@ v2openstack官方提供了一个通过curl的方法，如下
       
 
       
-        <p>pkgcloud作为openstack的官方指定nodejs的SDK，可以支持M版本的大部分api，下面主要说一下在认证（keystone）方面针对v2和v3两个版本差异</p>
-<h3 id="v2"><a href="#v2" class="headerlink" title="v2"></a>v2</h3><p>openstack官方提供了一个通过curl的方法，如下</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">  $ curl -s -X <span class="keyword">POST</span> <span class="variable">$OS_AUTH_URL</span>/tokens \</div><div class="line">  -<span class="keyword">H</span> <span class="string">"Content-Type: application/json"</span> \</div><div class="line">  -<span class="keyword">d</span> '&#123;<span class="string">"auth"</span>: &#123;<span class="string">"tenantName"</span>: <span class="string">"'"</span><span class="variable">$OS_PROJECT_NAME</span><span class="string">"'"</span>, <span class="string">"passwordCredentials"</span>: &#123;<span class="string">"username"</span>: <span class="string">"'"</span><span class="variable">$OS_USERNAME</span><span class="string">"'"</span>, <span class="string">"password"</span>: <span class="string">"'"</span><span class="variable">$OS_PASSWORD</span><span class="string">"'"</span>&#125;&#125;&#125;' \</div><div class="line">  | python -<span class="keyword">m</span> json.tool</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>其中如果没有对应的project，可以不用填写tenantName，后续的操作可以使用response中返回的token作为请求参数，注意过期日期即可。</p>
-<p>pkgcloud中对应的方法如下<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> pkgcloud = <span class="built_in">require</span>(<span class="string">'pkgcloud'</span>);</div><div class="line"><span class="keyword">var</span> cc = pkgcloud.compute.createClient(&#123;</div><div class="line">    <span class="attr">provider</span>: <span class="string">'openstack'</span>, <span class="comment">// required</span></div><div class="line">    username: <span class="string">'$user_name'</span>, <span class="comment">// required</span></div><div class="line">    password: <span class="string">'$user_pass'</span>, <span class="comment">// required</span></div><div class="line">    region: <span class="string">'RegionOne'</span>, <span class="comment">//在开发阶段，需要将这个设置为RegionOne</span></div><div class="line">    authUrl: <span class="string">'$auth_url'</span> <span class="comment">// required</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<p>获取的cc对象可以进行后续的操作，例如cc.getServers()等</p>
-<h3 id="v3"><a href="#v3" class="headerlink" title="v3"></a>v3</h3><p>在v3版本中，对应的参数结构发生了变化,官方提供的curl方法如下<br><figure class="highlight julia"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">curl -s -X POST $auth_url/v3/auth/tokens \</div><div class="line">  -H <span class="string">"Content-Type: application/json"</span> \</div><div class="line">  -d '&#123;<span class="string">"auth"</span>: &#123;</div><div class="line">        <span class="string">"identity"</span>: &#123;</div><div class="line">            <span class="string">"methods"</span>: [</div><div class="line">                <span class="string">"password"</span></div><div class="line">            ],</div><div class="line">            <span class="string">"password"</span>: &#123;</div><div class="line">                <span class="string">"user"</span>: &#123;</div><div class="line">                    <span class="string">"name"</span>: <span class="string">"<span class="variable">$user_name</span>"</span>,</div><div class="line">                    <span class="string">"domain"</span>: &#123;</div><div class="line">                        <span class="string">"name"</span>: <span class="string">"Default"</span></div><div class="line">                    &#125;,</div><div class="line">                    <span class="string">"password"</span>: <span class="string">"<span class="variable">$user_pass</span>"</span></div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;&#125;' \</div><div class="line">  | python3 -m json.tool</div></pre></td></tr></table></figure></p>
-<p>在请求的参数中，多了一个domain的key，此处填写’Default’即可</p>
-<p>pkgcloud对应方法如下，主要需要添加keystoneAuthVersion 设置为v3，同时设置tenantId和domainId<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> pkgcloud = <span class="built_in">require</span>(<span class="string">'pkgcloud'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> cc = pkgcloud.compute.createClient(&#123;</div><div class="line">    <span class="attr">provider</span>: <span class="string">'openstack'</span>, <span class="comment">// required</span></div><div class="line">    username: <span class="string">'$user_name'</span>, <span class="comment">// required</span></div><div class="line">    password: <span class="string">'$user_pass'</span>, <span class="comment">// required</span></div><div class="line">    region: <span class="string">'RegionOne'</span>,</div><div class="line">    <span class="attr">keystoneAuthVersion</span>: <span class="string">'v3'</span>,</div><div class="line">    <span class="attr">domainId</span>: <span class="string">'Default'</span>,</div><div class="line">    <span class="attr">tenantId</span>: <span class="string">'fc6ac8c46d8147fd9ffa7a32e373ff9a'</span>,</div><div class="line">    <span class="attr">domainName</span>: <span class="string">'Default'</span>,</div><div class="line">    <span class="attr">authUrl</span>: <span class="string">'$auth_url'</span> <span class="comment">// required</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<blockquote>
-<p>目前这个sdk还在完善阶段，很多的东西都没有在wiki和doc上体现，需要对着openstack的API一点点的排查，需要做的工作还很多呀。</p>
+        <h2 id="serverless"><a href="#serverless" class="headerlink" title="serverless"></a>serverless</h2><blockquote>
+<p>Serverless is a new paradigm in computing that enables simplicity, efficiency and scalability for both developers and operators</p>
 </blockquote>
+<p>serverless对于开发者以及运营人员都会带来不小的收益：</p>
+<p><code>开发者</code>：1.无需再关心服务器的管理，只需要上传自己的代码，平台会自动处理一切。2.无需再将自己的程序7*24小时的运行而付出高昂的费用，你的代码只有在需要的时候才会运行。</p>
+<p><code>运营</code>:1.机器的资源可以更加有效的得到合理的利用。2.更加容易的管理和扩容。</p>
+<a id="more"></a>
+<h2 id="iron-io-functions"><a href="#iron-io-functions" class="headerlink" title="iron-io/functions"></a>iron-io/functions</h2><p>ironFunctions是一个serverless的开源平台，按照时下流行的叫法就是FAAS(Functions As A Service)。</p>
+<p>该平台的主要特性</p>
+<p><code>write once</code>：可以使用任何主流语言,同时支持AWS的lambda函数</p>
+<p><code>run anywhere</code>:可以在共有云，私有云以及混合云中运行，直接运行lambda function，目前支持python，nodejs，java</p>
+<h2 id="quick-start"><a href="#quick-start" class="headerlink" title="quick start"></a>quick start</h2><p>ironFunctions官方提供了一些说明，让开发者可以快速体验它的功能。</p>
+<h3 id="前置条件"><a href="#前置条件" class="headerlink" title="前置条件"></a>前置条件</h3><p>docker 1.12或以后的版本</p>
+<p>登录到一个docker hub（docker login）</p>
+<h3 id="运行ironFunctions"><a href="#运行ironFunctions" class="headerlink" title="运行ironFunctions"></a>运行ironFunctions</h3><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker <span class="keyword">run</span><span class="bash"> --rm -it --name <span class="built_in">functions</span> --privileged -v <span class="variable">$&#123;PWD&#125;</span>/data:/app/data -p 8080:8080 iron/<span class="built_in">functions</span></span></div></pre></td></tr></table></figure>
+<p>通过这个命令可以在你的机器上运行一个单节点的ironFunction，可以使用里面内嵌的database和message queue。</p>
+<h3 id="客户端工具"><a href="#客户端工具" class="headerlink" title="客户端工具"></a>客户端工具</h3><p>安装ironFunctions的client</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">curl</span> -LSs http://<span class="meta">get</span>.iron.io/<span class="meta">fn</span> <span class="title">| sh</span></div></pre></td></tr></table></figure>
+<p>这个命令由于网络的原因经常会执行失败，不过不用担心，在浏览器上打链接，可以看到就是一段shell代码。里面的核心内容如下：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">url=<span class="string">'https://github.com/iron-io/functions/releases/download'</span></div><div class="line"></div><div class="line"><span class="comment"># perform some very rudimentary platform detection</span></div><div class="line">case <span class="string">"$(uname)"</span> <span class="keyword">in</span></div><div class="line">  Linux)</div><div class="line">    <span class="variable">$sh_c</span> <span class="string">"$curl /usr/local/bin/fn $url/$release/fn_linux"</span></div><div class="line">    <span class="variable">$sh_c</span> <span class="string">"chmod +x /usr/local/bin/fn"</span></div><div class="line">    fn --version</div><div class="line">    <span class="keyword">exit</span> <span class="number">0</span></div><div class="line">    ;;</div><div class="line">  Darwin)</div><div class="line">    <span class="variable">$sh_c</span> <span class="string">"$curl /usr/local/bin/fn $url/$release/fn_mac"</span></div><div class="line">    <span class="variable">$sh_c</span> <span class="string">"chmod +x /usr/local/bin/fn"</span></div><div class="line">    fn --version</div><div class="line">    <span class="keyword">exit</span> <span class="number">0</span></div><div class="line">    ;;</div><div class="line">  WindowsNT)</div><div class="line">    <span class="variable">$sh_c</span> <span class="string">"$curl $url/$release/fn.exe"</span></div><div class="line">    <span class="comment"># TODO how to make executable? chmod?</span></div><div class="line">    fn.exe --version</div><div class="line">    <span class="keyword">exit</span> <span class="number">0</span></div><div class="line">    ;;</div></pre></td></tr></table></figure>
+<p>判断你的OS,下载对应的fn版本，然后mv到/usr/local/bin/fn，所以当你执行上面那段语句失败，可以从<a href="https://github.com/iron-io/functions/release" target="_blank" rel="external">fn client</a>下载。</p>
+<h3 id="写一个函数"><a href="#写一个函数" class="headerlink" title="写一个函数"></a>写一个函数</h3><p>在serverless里面种，函数就是很小的，可以执行单一的简单任务，官方提供了一个用go编写的function</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">    <span class="string">"encoding/json"</span></div><div class="line">    <span class="string">"fmt"</span></div><div class="line">    <span class="string">"os"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="keyword">type</span> Person <span class="keyword">struct</span> &#123;</div><div class="line">    Name <span class="keyword">string</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">    p := &amp;Person&#123;Name: <span class="string">"World"</span>&#125;</div><div class="line">    json.NewDecoder(os.Stdin).Decode(p)</div><div class="line">    fmt.Printf(<span class="string">"Hello %v!"</span>, p.Name)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>粘贴代码到func.go文件中，然后通过下面的命令构建并部署这个function</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 通过functions的客户端命令，根据你源码的后缀，创建一个对应的yaml文件，同时在dockerhub上创建了对应的repository。</span></div><div class="line"><span class="keyword">fn</span> init <span class="variable">$USERNAME</span>/hello</div></pre></td></tr></table></figure>
+<p>yaml文件内容如下:</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">name:</span> $USERNAME/hello</div><div class="line"><span class="symbol">version:</span> <span class="number">0.0</span><span class="number">.1</span></div><div class="line"><span class="symbol">runtime:</span> go</div><div class="line"><span class="symbol">entrypoint:</span> ./func</div></pre></td></tr></table></figure>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 构建函数，将函数制作成docker image</span></div><div class="line"><span class="keyword">fn</span> build</div><div class="line"><span class="comment"># 运行进行，进行测试</span></div><div class="line"><span class="keyword">fn</span> run</div><div class="line"><span class="comment"># 将镜像push到docker hub对应的repository</span></div><div class="line"><span class="keyword">fn</span> push</div><div class="line"><span class="comment"># 创建一个app</span></div><div class="line"><span class="keyword">fn</span> apps create myapp</div><div class="line"><span class="comment"># 在app下创建一个路由，参数依次为 app名称，路由地址，镜像名称</span></div><div class="line"><span class="keyword">fn</span> routes create myapp /hello <span class="variable">$USERNAME</span>/<span class="symbol">hello:</span><span class="number">0</span>.<span class="number">0</span>.<span class="number">1</span></div></pre></td></tr></table></figure>
+<p>这样我们就创建好第一个functions了。可以通过curl来进行测试</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">curl <span class="symbol">http:</span>/<span class="regexp">/localhost:8080/r</span><span class="regexp">/myapp/hello</span></div><div class="line"></div><div class="line">Hello World!</div></pre></td></tr></table></figure>
+<h3 id="PS"><a href="#PS" class="headerlink" title="PS"></a>PS</h3><p>这个开始是在mac上搭建的。在已经拉取镜像的情况下，每次访问function的平均时间居然要1.15S左右，开始怀疑这个玩意是不是就是serverless概念的玩具。后来在ubuntu虚拟机上整了一套同样的环境。结果访问function的平均时间就在100ms左右了。后来专门查了下，发现他们官网针对这个也做过说明，的确是mac上的docker支持的不太好。看来玩docker还是要在ubuntu上呀。下图是官网的针对mac和ubuntu的对比截图</p>
+<p><img src="http://ol37p4zz4.bkt.clouddn.com/20170221148766742466803.png" alt="20170221148766742466803.png"></p>
 
       
     </div>
@@ -413,9 +440,9 @@ v2openstack官方提供了一个通过curl的方法，如下
       
         <div class="post-tags">
           
-            <a href="/tags/openstack/" rel="tag"># openstack</a>
+            <a href="/tags/golang/" rel="tag"># golang</a>
           
-            <a href="/tags/nodejs/" rel="tag"># nodejs</a>
+            <a href="/tags/serverless/" rel="tag"># serverless</a>
           
         </div>
       
@@ -428,8 +455,8 @@ v2openstack官方提供了一个通过curl的方法，如下
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/07/20170207-01/" rel="next" title="python生成javabean">
-                <i class="fa fa-chevron-left"></i> python生成javabean
+              <a href="/2017/02/10/20170210-01/" rel="next" title="Mac下安装golang">
+                <i class="fa fa-chevron-left"></i> Mac下安装golang
               </a>
             
           </div>
@@ -437,10 +464,6 @@ v2openstack官方提供了一个通过curl的方法，如下
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/02/08/20170208-02/" rel="prev" title="pkgcloud和curl创建openstack实例">
-                pkgcloud和curl创建openstack实例 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -489,8 +512,8 @@ v2openstack官方提供了一个通过curl的方法，如下
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/02/08/20170208-01/"
-           data-title="openstack和pkgcloud的认证" data-url="https://guankai.github.io/2017/02/08/20170208-01/">
+      <div class="ds-thread" data-thread-key="2017/02/21/ironFuncStart/"
+           data-title="iron-functions初体验" data-url="https://guankai.github.io/2017/02/21/ironFuncStart/">
       </div>
     
   </div>
@@ -624,7 +647,7 @@ v2openstack官方提供了一个通过curl的方法，如下
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#v2"><span class="nav-number">1.</span> <span class="nav-text">v2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#v3"><span class="nav-number">2.</span> <span class="nav-text">v3</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#serverless"><span class="nav-number">1.</span> <span class="nav-text">serverless</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#iron-io-functions"><span class="nav-number">2.</span> <span class="nav-text">iron-io/functions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#quick-start"><span class="nav-number">3.</span> <span class="nav-text">quick start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前置条件"><span class="nav-number">3.1.</span> <span class="nav-text">前置条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行ironFunctions"><span class="nav-number">3.2.</span> <span class="nav-text">运行ironFunctions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端工具"><span class="nav-number">3.3.</span> <span class="nav-text">客户端工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写一个函数"><span class="nav-number">3.4.</span> <span class="nav-text">写一个函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PS"><span class="nav-number">3.5.</span> <span class="nav-text">PS</span></a></li></ol></li></ol></div>
             
 
           </div>
