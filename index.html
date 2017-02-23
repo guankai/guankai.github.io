@@ -373,26 +373,14 @@
 
       
         
-          
-            <h3 id="查看虚拟硬盘是否动态分配大小"><a href="#查看虚拟硬盘是否动态分配大小" class="headerlink" title="查看虚拟硬盘是否动态分配大小"></a>查看虚拟硬盘是否动态分配大小</h3><p>打开虚拟机的设置界面，需要扩展虚拟硬盘机器的设置，在右边可以看到虚拟硬盘的设置信息<br><img src="http://ol37p4zz4.bkt.clouddn.com/20170223148783547147580.png" alt="20170223148783547147580.png"></p>
-<h3 id="备份虚拟硬盘"><a href="#备份虚拟硬盘" class="headerlink" title="备份虚拟硬盘"></a>备份虚拟硬盘</h3><p>在我们为virtualbox虚拟硬盘扩容前，防止发生错误，需要先备份一下防止数据丢失</p>
-<p>将右边<code>位置</code>对应路径就是虚拟硬盘的位置，将其复制下来<br><img src="http://ol37p4zz4.bkt.clouddn.com/20170223148783613036385.png" alt="20170223148783613036385.png"></p>
-<p>然后将虚拟硬盘从你的虚拟机上移除，通过点击<code>-</code>号<br><img src="http://ol37p4zz4.bkt.clouddn.com/20170223148783623990032.png" alt="20170223148783623990032.png"></p>
-<p>在宿主上打开一个终端，输入命令备份虚拟硬盘</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cp /location-of-virtual-disk /location-of-backup-of-virtual-disk</div></pre></td></tr></table></figure>
-<h3 id="为virtualbox虚拟硬盘扩容"><a href="#为virtualbox虚拟硬盘扩容" class="headerlink" title="为virtualbox虚拟硬盘扩容"></a>为virtualbox虚拟硬盘扩容</h3><p>现在，我们需要通过vboxmanage命令来为虚拟硬盘扩容，命令如下</p>
-<figure class="highlight delphi"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vboxmanage modifyhd /location-<span class="keyword">of</span>-your-<span class="keyword">virtual</span>-disk --resize size-<span class="keyword">in</span>-MB</div></pre></td></tr></table></figure>
-<p>虚拟机的扩容单位是MB, 我将虚拟硬盘扩容为30GB</p>
-<figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vboxmanage modifyhd <span class="string">"/Users/guankai/VirtualBox VMs/Ubuntu/ubuntu.vdi"</span> <span class="comment">--resize 30720</span></div></pre></td></tr></table></figure>
-<p>Ps. 你不能用这个命令来缩减虚拟硬盘的容量</p>
-<p>现在需要在virtualbox对应的虚拟机的设置中将这个扩容的vdi重新添加<br><img src="http://ol37p4zz4.bkt.clouddn.com/20170223148783698262185.png" alt="20170223148783698262185.png"></p>
-<p>如果对话框中没有显示你已经增加的存储，不用担心。只要启动虚拟机后在里面通过df命令看到这个新增的盘就行。</p>
-<h3 id="使用Gparted为Guest-OS文件系统扩容"><a href="#使用Gparted为Guest-OS文件系统扩容" class="headerlink" title="使用Gparted为Guest OS文件系统扩容"></a>使用Gparted为Guest OS文件系统扩容</h3><p>虽然我们为虚拟硬盘扩容，可以Guest OS并不能使用新增的空间，我们需要一个OS的安装镜像启动虚拟机。通过镜像里面的Gparted这个工具对文件系统扩容</p>
-<p>在virtualbox中设置从光驱启动，同时设置Guest OS的镜像文件<br><img src="http://ol37p4zz4.bkt.clouddn.com/20170223148783758421028.png" alt="20170223148783758421028.png"></p>
-<p>进入通过镜像启动的live系统后，在工具里面搜索Gparted并打开<br><img src="http://ol37p4zz4.bkt.clouddn.com/20170223148783917846220.png" alt="20170223148783917846220.png"></p>
-<p>新增的盘会以extended的形式出现，先把删除swap分区，删除extended，将现有的/dev/sda1通过拖拽增大（给swap留2G即可）<br>接着创建extended，创建swap，应用。大功告成。</p>
-
-          
+          <h3 id="查看虚拟硬盘是否动态分配大小"><a href="#查看虚拟硬盘是否动态分配大小" class="headerlink" title="查看虚拟硬盘是否动态分配大小"></a>查看虚拟硬盘是否动态分配大小</h3><p>打开虚拟机的设置界面，需要扩展虚拟硬盘机器的设置，在右边可以看到虚拟硬盘的设置信息<br><img src="http://ol37p4zz4.bkt.clouddn.com/20170223148783547147580.png" alt="20170223148783547147580.png"><br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/02/23/mac-virtualbox/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
