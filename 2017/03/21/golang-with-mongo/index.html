@@ -45,7 +45,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="mac,virtualbox," />
+  <meta name="keywords" content="golang,mongo," />
 
 
 
@@ -61,23 +61,22 @@
 
 
 
-<meta name="description" content="查看虚拟硬盘是否动态分配大小打开虚拟机的设置界面，需要扩展虚拟硬盘机器的设置，在右边可以看到虚拟硬盘的设置信息">
+<meta name="description" content="mongodb是这些年比较火的NoSql数据库了，这里就不对它深入的说明了，本文主要来说说如果通过golang来使用mongodb。
+准备工作1.mongodb数据库
+2.gopkg.in/mgo.v2库">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何为动态分配的Virtualbox虚拟硬盘扩容">
-<meta property="og:url" content="https://guankai.github.io/2017/02/23/mac-virtualbox/index.html">
+<meta property="og:title" content="golang-with-mongo">
+<meta property="og:url" content="https://guankai.github.io/2017/03/21/golang-with-mongo/index.html">
 <meta property="og:site_name" content="镜花水月">
-<meta property="og:description" content="查看虚拟硬盘是否动态分配大小打开虚拟机的设置界面，需要扩展虚拟硬盘机器的设置，在右边可以看到虚拟硬盘的设置信息">
-<meta property="og:image" content="http://ol37p4zz4.bkt.clouddn.com/20170223148783547147580.png">
-<meta property="og:image" content="http://ol37p4zz4.bkt.clouddn.com/20170223148783613036385.png">
-<meta property="og:image" content="http://ol37p4zz4.bkt.clouddn.com/20170223148783623990032.png">
-<meta property="og:image" content="http://ol37p4zz4.bkt.clouddn.com/20170223148783698262185.png">
-<meta property="og:image" content="http://ol37p4zz4.bkt.clouddn.com/20170223148783758421028.png">
-<meta property="og:image" content="http://ol37p4zz4.bkt.clouddn.com/20170223148783917846220.png">
-<meta property="og:updated_time" content="2017-02-23T08:47:33.000Z">
+<meta property="og:description" content="mongodb是这些年比较火的NoSql数据库了，这里就不对它深入的说明了，本文主要来说说如果通过golang来使用mongodb。
+准备工作1.mongodb数据库
+2.gopkg.in/mgo.v2库">
+<meta property="og:updated_time" content="2017-03-21T14:14:53.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如何为动态分配的Virtualbox虚拟硬盘扩容">
-<meta name="twitter:description" content="查看虚拟硬盘是否动态分配大小打开虚拟机的设置界面，需要扩展虚拟硬盘机器的设置，在右边可以看到虚拟硬盘的设置信息">
-<meta name="twitter:image" content="http://ol37p4zz4.bkt.clouddn.com/20170223148783547147580.png">
+<meta name="twitter:title" content="golang-with-mongo">
+<meta name="twitter:description" content="mongodb是这些年比较火的NoSql数据库了，这里就不对它深入的说明了，本文主要来说说如果通过golang来使用mongodb。
+准备工作1.mongodb数据库
+2.gopkg.in/mgo.v2库">
 
 
 
@@ -105,13 +104,13 @@
 
 
 
-  <link rel="canonical" href="https://guankai.github.io/2017/02/23/mac-virtualbox/"/>
+  <link rel="canonical" href="https://guankai.github.io/2017/03/21/golang-with-mongo/"/>
 
 
 
 
 
-  <title> 如何为动态分配的Virtualbox虚拟硬盘扩容 | 镜花水月 </title>
+  <title> golang-with-mongo | 镜花水月 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -271,7 +270,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://guankai.github.io/2017/02/23/mac-virtualbox/">
+  <link itemprop="mainEntityOfPage" href="https://guankai.github.io/2017/03/21/golang-with-mongo/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="patrick guan">
@@ -295,7 +294,7 @@
             
             
               
-                如何为动态分配的Virtualbox虚拟硬盘扩容
+                golang-with-mongo
               
             
           </h1>
@@ -310,8 +309,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-23T15:14:11+08:00">
-                2017-02-23
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-21T21:27:14+08:00">
+                2017-03-21
               </time>
             
 
@@ -333,8 +332,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/mac技巧/" itemprop="url" rel="index">
-                    <span itemprop="name">mac技巧</span>
+                  <a href="/categories/语言学习/" itemprop="url" rel="index">
+                    <span itemprop="name">语言学习</span>
                   </a>
                 </span>
 
@@ -351,8 +350,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/02/23/mac-virtualbox/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/23/mac-virtualbox/" itemprop="commentCount"></span>
+                <a href="/2017/03/21/golang-with-mongo/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/21/golang-with-mongo/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -378,25 +377,25 @@
       
 
       
-        <h3 id="查看虚拟硬盘是否动态分配大小"><a href="#查看虚拟硬盘是否动态分配大小" class="headerlink" title="查看虚拟硬盘是否动态分配大小"></a>查看虚拟硬盘是否动态分配大小</h3><p>打开虚拟机的设置界面，需要扩展虚拟硬盘机器的设置，在右边可以看到虚拟硬盘的设置信息</p>
+        <p>mongodb是这些年比较火的NoSql数据库了，这里就不对它深入的说明了，本文主要来说说如果通过golang来使用mongodb。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>1.mongodb数据库</p>
+<p>2.gopkg.in/mgo.v2库</p>
 <a id="more"></a>
-<p><img src="http://ol37p4zz4.bkt.clouddn.com/20170223148783547147580.png" alt="20170223148783547147580.png"></p>
-<h3 id="备份虚拟硬盘"><a href="#备份虚拟硬盘" class="headerlink" title="备份虚拟硬盘"></a>备份虚拟硬盘</h3><p>在我们为virtualbox虚拟硬盘扩容前，防止发生错误，需要先备份一下防止数据丢失</p>
-<p>将右边<code>位置</code>对应路径就是虚拟硬盘的位置，将其复制下来<br><img src="http://ol37p4zz4.bkt.clouddn.com/20170223148783613036385.png" alt="20170223148783613036385.png"></p>
-<p>然后将虚拟硬盘从你的虚拟机上移除，通过点击<code>-</code>号<br><img src="http://ol37p4zz4.bkt.clouddn.com/20170223148783623990032.png" alt="20170223148783623990032.png"></p>
-<p>在宿主上打开一个终端，输入命令备份虚拟硬盘</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cp /location-of-virtual-disk /location-of-backup-of-virtual-disk</div></pre></td></tr></table></figure>
-<h3 id="为virtualbox虚拟硬盘扩容"><a href="#为virtualbox虚拟硬盘扩容" class="headerlink" title="为virtualbox虚拟硬盘扩容"></a>为virtualbox虚拟硬盘扩容</h3><p>现在，我们需要通过vboxmanage命令来为虚拟硬盘扩容，命令如下</p>
-<figure class="highlight delphi"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vboxmanage modifyhd /location-<span class="keyword">of</span>-your-<span class="keyword">virtual</span>-disk --resize size-<span class="keyword">in</span>-MB</div></pre></td></tr></table></figure>
-<p>虚拟机的扩容单位是MB, 我将虚拟硬盘扩容为30GB</p>
-<figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vboxmanage modifyhd <span class="string">"/Users/guankai/VirtualBox VMs/Ubuntu/ubuntu.vdi"</span> <span class="comment">--resize 30720</span></div></pre></td></tr></table></figure>
-<p>Ps. 你不能用这个命令来缩减虚拟硬盘的容量</p>
-<p>现在需要在virtualbox对应的虚拟机的设置中将这个扩容的vdi重新添加<br><img src="http://ol37p4zz4.bkt.clouddn.com/20170223148783698262185.png" alt="20170223148783698262185.png"></p>
-<p>如果对话框中没有显示你已经增加的存储，不用担心。只要启动虚拟机后在里面通过df命令看到这个新增的盘就行。</p>
-<h3 id="使用Gparted为Guest-OS文件系统扩容"><a href="#使用Gparted为Guest-OS文件系统扩容" class="headerlink" title="使用Gparted为Guest OS文件系统扩容"></a>使用Gparted为Guest OS文件系统扩容</h3><p>虽然我们为虚拟硬盘扩容，可以Guest OS并不能使用新增的空间，我们需要一个OS的安装镜像启动虚拟机。通过镜像里面的Gparted这个工具对文件系统扩容</p>
-<p>在virtualbox中设置从光驱启动，同时设置Guest OS的镜像文件<br><img src="http://ol37p4zz4.bkt.clouddn.com/20170223148783758421028.png" alt="20170223148783758421028.png"></p>
-<p>进入通过镜像启动的live系统后，在工具里面搜索Gparted并打开<br><img src="http://ol37p4zz4.bkt.clouddn.com/20170223148783917846220.png" alt="20170223148783917846220.png"></p>
-<p>新增的盘会以extended的形式出现，先把删除swap分区，删除extended，将现有的/dev/sda1通过拖拽增大（给swap留2G即可）<br>接着创建extended，创建swap，应用。大功告成。</p>
+<h2 id="mongodb搭建"><a href="#mongodb搭建" class="headerlink" title="mongodb搭建"></a>mongodb搭建</h2><p>官网会提供很多mongodb的安装方法，这里使用docker进行安装，只需要执行如下的命令即可</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker <span class="keyword">run</span><span class="bash"> -p 27017:27017 -v <span class="variable">$PWD</span>/db:/data/db <span class="_">-d</span> mongo:latest</span></div></pre></td></tr></table></figure>
+<p><code>$PWD</code>是指当前路径，另外此处使用的镜像是mongodb:latest，可以根据自己的实际需求选择不同版本的tag进行安装</p>
+<h2 id="golang编码"><a href="#golang编码" class="headerlink" title="golang编码"></a>golang编码</h2><h3 id="首先建立mongo的连接"><a href="#首先建立mongo的连接" class="headerlink" title="首先建立mongo的连接"></a>首先建立mongo的连接</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> (</div><div class="line">	<span class="string">"gopkg.in/mgo.v2"</span> <span class="comment">// 引入mgo.v2</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="comment">// 创建一个mgo session的全局变量</span></div><div class="line"><span class="keyword">var</span> session *mgo.Session</div><div class="line"></div><div class="line"><span class="comment">// 获取mongo连接</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">Conn</span><span class="params">()</span> *<span class="title">mgo</span>.<span class="title">Session</span></span> &#123;</div><div class="line">	<span class="keyword">return</span> session.Copy()</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</div><div class="line"></div><div class="line">	sess, err := mgo.Dial(mongodb:<span class="comment">//127.0.0.1:27017/patrick-demo)</span></div><div class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</div><div class="line">		<span class="built_in">panic</span>(err)</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	session = sess</div><div class="line">	session.SetMode(mgo.Monotonic, <span class="literal">true</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="使用mgo进行数据的插入"><a href="#使用mgo进行数据的插入" class="headerlink" title="使用mgo进行数据的插入"></a>使用mgo进行数据的插入</h3><p>首先定义一个用户的结构体</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">type User struct &#123;</div><div class="line">	ID       bson.ObjectId    `bson:<span class="string">"_id"</span>      json:<span class="string">"_id,omitempty"</span>`</div><div class="line">	Name     string    `bson:<span class="string">"name"</span>     json:<span class="string">"name,omitempty"</span>`</div><div class="line">	Password string    `bson:<span class="string">"password"</span> json:<span class="string">"password,omitempty"</span>`</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>初始化用户结构体，并将数据插入到mongodb中<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u *User)</span> <span class="title">Insert</span><span class="params">()</span> <span class="params">(code <span class="keyword">int</span>, err error)</span></span> &#123;</div><div class="line">	<span class="comment">// 获取mongo的连接</span></div><div class="line">	mConn := mymongo.Conn()</div><div class="line">	<span class="comment">// 释放连接</span></div><div class="line">	<span class="keyword">defer</span> mConn.Close()</div><div class="line"></div><div class="line">	c := mConn.DB(<span class="string">"patrick-demo"</span>).C(<span class="string">"users"</span>)</div><div class="line">	</div><div class="line">	user := User&#123;</div><div class="line">		ID:       bson.NewObjectId(),</div><div class="line">		Name:     <span class="string">"patrick"</span>,</div><div class="line">		Password: <span class="string">"123123"</span></div><div class="line">		&#125;</div><div class="line">		</div><div class="line">	err = c.Insert(&amp;user)</div><div class="line"></div><div class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</div><div class="line">		<span class="keyword">if</span> mgo.IsDup(err) &#123;</div><div class="line">			code = ErrDupRows</div><div class="line">		&#125; <span class="keyword">else</span> &#123;</div><div class="line">			code = ErrDatabase</div><div class="line">		&#125;</div><div class="line">	&#125; <span class="keyword">else</span> &#123;</div><div class="line">		code = <span class="number">0</span></div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="查询mongo"><a href="#查询mongo" class="headerlink" title="查询mongo"></a>查询mongo</h3><p>查询一般会通过mongo的<code>_id</code>来进行查询，也可以用结构中的任意字段进行查询</p>
+<p>通过<code>_id</code>查询</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">mConn := mymongo.Conn()</div><div class="line">defer mConn.Close()</div><div class="line"></div><div class="line">c := mConn.DB(<span class="string">"patrick-demo"</span>).C(<span class="string">"users"</span>)</div><div class="line"></div><div class="line">u := User&#123;&#125;</div><div class="line"></div><div class="line">err = c.FindId(id).One(&amp;u)</div></pre></td></tr></table></figure>
+<p>通过其他字段查找，例如<code>name</code></p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">mConn := mongo.Conn()</div><div class="line">defer mConn.Clone()</div><div class="line"></div><div class="line">u := User&#123;&#125;</div><div class="line"></div><div class="line">c := mConn.DB(<span class="string">"cloud-platform"</span>).C(<span class="string">"users"</span>)</div><div class="line"></div><div class="line">err = c.Find(bson.M&#123;<span class="string">"name"</span>:<span class="string">"patrick"</span>&#125;).One(&amp;u)</div></pre></td></tr></table></figure>
+<h3 id="更新数据"><a href="#更新数据" class="headerlink" title="更新数据"></a>更新数据</h3><p>更新数据一般会是用upsert的方法，update(selector,data)，其中selector是更新条件，data是要更新的内容，要注意的是，如果data直接写bson.M{“name”:”test”}，则会把整个document更新为data中的内容，如果只是更新name这个字段，只需要使用<code>&quot;$set&quot;</code>，具体方法如下</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">mConn := mongo.Conn()</div><div class="line">defer mConn.Clone()</div><div class="line">c := mConn.DB(<span class="string">"patrick-demo"</span>).C(<span class="string">"users"</span>)</div><div class="line">selector := bson.M&#123;<span class="string">"_id"</span>:u.ID&#125;</div><div class="line">data := bson.M&#123;<span class="string">"$set"</span>:bson.M&#123;<span class="string">"name"</span>:<span class="string">"test"</span>, <span class="string">"email"</span>:<span class="string">"test@126.com"</span>&#125;&#125;</div><div class="line">_, err = c.Upsert(selector, data)</div></pre></td></tr></table></figure>
+<p>本文只是一个入门，如果需要使用更多的特性，需要去看看<a href="https://godoc.org/labix.org/v2/mgo" target="_blank" rel="external">mgo.v2</a>,里面有更多的使用方法。</p>
 
       
     </div>
@@ -420,9 +419,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/mac/" rel="tag"># mac</a>
+            <a href="/tags/golang/" rel="tag"># golang</a>
           
-            <a href="/tags/virtualbox/" rel="tag"># virtualbox</a>
+            <a href="/tags/mongo/" rel="tag"># mongo</a>
           
         </div>
       
@@ -435,8 +434,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/21/ironFuncStart/" rel="next" title="iron-functions初体验">
-                <i class="fa fa-chevron-left"></i> iron-functions初体验
+              <a href="/2017/02/25/mac-vim/" rel="next" title="mac上设置vim">
+                <i class="fa fa-chevron-left"></i> mac上设置vim
               </a>
             
           </div>
@@ -444,10 +443,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/02/25/mac-vim/" rel="prev" title="mac上设置vim">
-                mac上设置vim <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -462,10 +457,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2017/02/23/mac-virtualbox/"
-     data-title="如何为动态分配的Virtualbox虚拟硬盘扩容"
+        <div class="ds-share flat" data-thread-key="2017/03/21/golang-with-mongo/"
+     data-title="golang-with-mongo"
      data-content=""
-     data-url="https://guankai.github.io/2017/02/23/mac-virtualbox/">
+     data-url="https://guankai.github.io/2017/03/21/golang-with-mongo/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -492,8 +487,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/02/23/mac-virtualbox/"
-           data-title="如何为动态分配的Virtualbox虚拟硬盘扩容" data-url="https://guankai.github.io/2017/02/23/mac-virtualbox/">
+      <div class="ds-thread" data-thread-key="2017/03/21/golang-with-mongo/"
+           data-title="golang-with-mongo" data-url="https://guankai.github.io/2017/03/21/golang-with-mongo/">
       </div>
     
   </div>
@@ -627,7 +622,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看虚拟硬盘是否动态分配大小"><span class="nav-number">1.</span> <span class="nav-text">查看虚拟硬盘是否动态分配大小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#备份虚拟硬盘"><span class="nav-number">2.</span> <span class="nav-text">备份虚拟硬盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为virtualbox虚拟硬盘扩容"><span class="nav-number">3.</span> <span class="nav-text">为virtualbox虚拟硬盘扩容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Gparted为Guest-OS文件系统扩容"><span class="nav-number">4.</span> <span class="nav-text">使用Gparted为Guest OS文件系统扩容</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mongodb搭建"><span class="nav-number">2.</span> <span class="nav-text">mongodb搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#golang编码"><span class="nav-number">3.</span> <span class="nav-text">golang编码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#首先建立mongo的连接"><span class="nav-number">3.1.</span> <span class="nav-text">首先建立mongo的连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用mgo进行数据的插入"><span class="nav-number">3.2.</span> <span class="nav-text">使用mgo进行数据的插入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询mongo"><span class="nav-number">3.3.</span> <span class="nav-text">查询mongo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新数据"><span class="nav-number">3.4.</span> <span class="nav-text">更新数据</span></a></li></ol></li></ol></div>
             
 
           </div>
