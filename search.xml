@@ -3,6 +3,13 @@
   
     
     <entry>
+      <title><![CDATA[shadowsocks安装和设置]]></title>
+      <url>%2F2017%2F05%2F11%2Fshadowsocks%2F</url>
+      <content type="text"><![CDATA[一直在用免费的lantern翻墙，但是网速的表现总是让人很失望。所以决定自己做一个SS。 VPS首先你需要有一个可以访问墙外网络的vps（虚拟主机），我在bangwagon和vultr中选择了后者。主要原因是界面看起来比较漂亮。。。 注册vultr的步骤就不在这里面详细说明了。关联好你的信用卡后，就可以选择套餐了，他的$2.5/MO的套餐已经卖完了，估计是由于ip资源的紧张，导致这种便宜的套餐让他没有什么盈利吧。剩下就只能选择$5/MO的套餐了。 这个套餐是单核，1g内存，1000G每月的带宽，这个带宽的确是很不错。你就是天天看youtube估计都看不完这些流量。 这些基本上的选择完成后，就改确定操作系统了。我选择的是ubuntu16.04版本。instance启动后，我们就可以在自己的主机上安装shadowsocks了。 shadowsocks 安装安装方式有两种： 第一种是通过pip进行安装 123sudo apt-get updatesudo apt-get install python-pipsudo apt-get install python-setuptools m2crypto 安装好pip需要的东西后就可以安装shadowsocks了 1pip install shadowsocks 第二种只针对16.04以上版本，可以直接用apt进行安装 1sudo apt install shadowsocks shadowsocks 配置启动shadowsocks需要一个配置文件，在/etc/下面创建一个shadowsocks.json的文件,内容如下 12345678&#123; "server":"服务器ip", //这部分开始填写服务器ip会报错，后来填写为0.0.0.0就ok了 "server_port":服务器端口, "local_port":1080, "password":"密码", "timeout":600, "method":"aes-256-cfb"&#125; 配置完成后，启动shadowsocks即可 1ssserver -c /etc/shadowsocks.json -d start 客户端pc上的客户端可以在github上搜索ShadowsockS-NG ios的客户端建议用wingy]]></content>
+    </entry>
+
+    
+    <entry>
       <title><![CDATA[ubuntu安装java8]]></title>
       <url>%2F2017%2F04%2F07%2Fubuntu-java%2F</url>
       <content type="text"><![CDATA[在Ubuntu上安装java最好的方式还是通过apt-get这个工具，不过apt-get默认的源只有openjdk，如果要安装oracle的jdk，则需要更新apt的索引 更新索引12# sudo add-apt-repository ppa:webupd8team/java$ sudo apt-get update 安装oracle java 81# sudo apt-get install oracle-java8-installer 确认安装版本1# java -version 设置环境变量1# sudo apt-get install oracle-java8-set-default]]></content>
