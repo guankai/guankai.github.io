@@ -45,7 +45,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="golang,mac," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -61,16 +61,12 @@
 
 
 
-<meta name="description" content="首先安装brewbrew是mac上的强大的包管理工具，类似ubuntu的apt-get以及centos的yum，属于mac上必装的软件。1234#在终端输入命令ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;#安装后更新下brew update">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Mac下安装golang">
-<meta property="og:url" content="https://guankai.github.io/2017/02/10/20170210-01/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="镜花水月">
+<meta property="og:url" content="https://guankai.github.io/page/2/index.html">
 <meta property="og:site_name" content="镜花水月">
-<meta property="og:description" content="首先安装brewbrew是mac上的强大的包管理工具，类似ubuntu的apt-get以及centos的yum，属于mac上必装的软件。1234#在终端输入命令ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;#安装后更新下brew update">
-<meta property="og:updated_time" content="2017-02-10T07:16:13.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mac下安装golang">
-<meta name="twitter:description" content="首先安装brewbrew是mac上的强大的包管理工具，类似ubuntu的apt-get以及centos的yum，属于mac上必装的软件。1234#在终端输入命令ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;#安装后更新下brew update">
+<meta name="twitter:title" content="镜花水月">
 
 
 
@@ -98,13 +94,13 @@
 
 
 
-  <link rel="canonical" href="https://guankai.github.io/2017/02/10/20170210-01/"/>
+  <link rel="canonical" href="https://guankai.github.io/page/2/"/>
 
 
 
 
 
-  <title> Mac下安装golang | 镜花水月 </title>
+  <title> 镜花水月 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -129,7 +125,9 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left 
+   page-home 
+ ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -253,9 +251,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
 
@@ -264,7 +262,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://guankai.github.io/2017/02/10/20170210-01/">
+  <link itemprop="mainEntityOfPage" href="https://guankai.github.io/2017/02/07/20170207-01/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="patrick guan">
@@ -288,7 +286,10 @@
             
             
               
-                Mac下安装golang
+                
+                <a class="post-title-link" href="/2017/02/07/20170207-01/" itemprop="url">
+                  python生成javabean
+                </a>
               
             
           </h1>
@@ -303,8 +304,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-10T15:09:12+08:00">
-                2017-02-10
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-07T17:58:12+08:00">
+                2017-02-07
               </time>
             
 
@@ -361,79 +362,51 @@
       
 
       
-        <h3 id="首先安装brew"><a href="#首先安装brew" class="headerlink" title="首先安装brew"></a>首先安装<code>brew</code></h3><p><code>brew</code>是mac上的强大的包管理工具，类似ubuntu的<code>apt-get</code>以及centos的<code>yum</code>，属于mac上必装的软件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#在终端输入命令</span></div><div class="line">ruby <span class="_">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></div><div class="line"><span class="comment">#安装后更新下</span></div><div class="line">brew update</div></pre></td></tr></table></figure></p>
-<a id="more"></a>
-<h3 id="开始安装go"><a href="#开始安装go" class="headerlink" title="开始安装go"></a>开始安装go</h3><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">brew </span><span class="keyword">install </span>go</div></pre></td></tr></table></figure>
-<h3 id="设置go的环境变量"><a href="#设置go的环境变量" class="headerlink" title="设置go的环境变量"></a>设置go的环境变量</h3><p>在用户根目录下<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">vi</span> ~/.bash_profile</div></pre></td></tr></table></figure></p>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 设置goroot</span></div><div class="line">export PATH=<span class="variable">$PATH</span><span class="symbol">:/usr/local/opt/go/libexec/bin</span></div><div class="line"><span class="comment"># 设置gopath</span></div><div class="line">export GOPATH=<span class="regexp">/Users/yourname</span><span class="regexp">/go</span></div></pre></td></tr></table></figure>
-<p>使设置生效<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">source</span> .bash_profile</div></pre></td></tr></table></figure></p>
-<h3 id="如果使用了zsh，需要将以上的设置在-zshrc中再写一遍即可。"><a href="#如果使用了zsh，需要将以上的设置在-zshrc中再写一遍即可。" class="headerlink" title="如果使用了zsh，需要将以上的设置在~/.zshrc中再写一遍即可。"></a>如果使用了zsh，需要将以上的设置在~/.zshrc中再写一遍即可。</h3>
+        
+          <p>python作为一个简洁的语言，在作为工具、监控以及运维等方面的使用上的确令人耳目一新。于是尝试使用python做一个简陋的javaBean生成工具，目前很多人喜欢在数据库表命名的时候采用underline的方式如”xx_xx_table”，而javabean的命名通常为camel方式，如”myBean”。下面看看python能做些什么。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/02/07/20170207-01/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
       
     </div>
 
     <div>
       
-        
-
-      
     </div>
 
     <div>
-      
-        
-
       
     </div>
 
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/golang/" rel="tag"># golang</a>
-          
-            <a href="/tags/mac/" rel="tag"># mac</a>
-          
-        </div>
+
       
 
       
-        
-      
 
       
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/02/08/20170208-02/" rel="next" title="pkgcloud和curl创建openstack实例">
-                <i class="fa fa-chevron-left"></i> pkgcloud和curl创建openstack实例
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/02/21/ironFuncStart/" rel="prev" title="iron-functions初体验">
-                iron-functions初体验 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
       
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
 
           
           </div>
@@ -441,10 +414,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
-
 
         </div>
         
@@ -464,17 +433,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -564,22 +524,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#首先安装brew"><span class="nav-number">1.</span> <span class="nav-text">首先安装brew</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开始安装go"><span class="nav-number">2.</span> <span class="nav-text">开始安装go</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置go的环境变量"><span class="nav-number">3.</span> <span class="nav-text">设置go的环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果使用了zsh，需要将以上的设置在-zshrc中再写一遍即可。"><span class="nav-number">4.</span> <span class="nav-text">如果使用了zsh，需要将以上的设置在~/.zshrc中再写一遍即可。</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
     </div>
@@ -679,10 +623,6 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
-
-
 
   
 
