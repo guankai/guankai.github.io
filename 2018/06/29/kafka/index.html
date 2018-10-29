@@ -108,13 +108,13 @@
 
 
 
-  <meta name="description" content="Kafka部署手册Step1 下载kafka下载1.1.0版本，在服务器解压 12tar -zxvf kafka_2.11-1.1.0.tgzcd kafka_2.11-1.1.0.tgz 下载地址如下kafka download url Step2 启动服务运行kafka需要zookeeper的支持，所有需要优先启动zookeeper，如果你没有zookeeper可以使用kafka自带的。 1b">
+  <meta name="description" content="Kafka部署手册Step1 下载kafka下载1.1.0版本，在服务器解压 12tar -zxvf kafka_2.11-1.1.0.tgzcd kafka_2.11-1.1.0.tgz 下载地址如下kafka download url">
 <meta name="keywords" content="kafka">
 <meta property="og:type" content="article">
 <meta property="og:title" content="kafka">
 <meta property="og:url" content="https://guankai.github.io/2018/06/29/kafka/index.html">
 <meta property="og:site_name" content="镜花水月">
-<meta property="og:description" content="Kafka部署手册Step1 下载kafka下载1.1.0版本，在服务器解压 12tar -zxvf kafka_2.11-1.1.0.tgzcd kafka_2.11-1.1.0.tgz 下载地址如下kafka download url Step2 启动服务运行kafka需要zookeeper的支持，所有需要优先启动zookeeper，如果你没有zookeeper可以使用kafka自带的。 1b">
+<meta property="og:description" content="Kafka部署手册Step1 下载kafka下载1.1.0版本，在服务器解压 12tar -zxvf kafka_2.11-1.1.0.tgzcd kafka_2.11-1.1.0.tgz 下载地址如下kafka download url">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNbRwly1fwou1h7ueqj319y074qbn.jpg">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNbRwly1fwou28laspj319w02adi2.jpg">
@@ -129,10 +129,10 @@
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNbRwly1fwouaxm5mfj31a20kyn9r.jpg">
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNbRwly1fwoubam2rhj319y04wjvw.jpg">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNbRwly1fwoubqli8dj319w08awlj.jpg">
-<meta property="og:updated_time" content="2018-10-29T01:36:25.392Z">
+<meta property="og:updated_time" content="2018-10-29T01:42:32.853Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kafka">
-<meta name="twitter:description" content="Kafka部署手册Step1 下载kafka下载1.1.0版本，在服务器解压 12tar -zxvf kafka_2.11-1.1.0.tgzcd kafka_2.11-1.1.0.tgz 下载地址如下kafka download url Step2 启动服务运行kafka需要zookeeper的支持，所有需要优先启动zookeeper，如果你没有zookeeper可以使用kafka自带的。 1b">
+<meta name="twitter:description" content="Kafka部署手册Step1 下载kafka下载1.1.0版本，在服务器解压 12tar -zxvf kafka_2.11-1.1.0.tgzcd kafka_2.11-1.1.0.tgz 下载地址如下kafka download url">
 <meta name="twitter:image" content="https://ws1.sinaimg.cn/large/006tNbRwly1fwou1h7ueqj319y074qbn.jpg">
 
 
@@ -378,7 +378,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-10-29 09:36:25" itemprop="dateModified" datetime="2018-10-29T09:36:25+08:00">2018-10-29</time>
+                <time title="修改时间：2018-10-29 09:42:32" itemprop="dateModified" datetime="2018-10-29T09:42:32+08:00">2018-10-29</time>
               
             
           </span>
@@ -432,6 +432,7 @@
         <h2 id="Kafka部署手册"><a href="#Kafka部署手册" class="headerlink" title="Kafka部署手册"></a>Kafka部署手册</h2><h3 id="Step1-下载kafka"><a href="#Step1-下载kafka" class="headerlink" title="Step1 下载kafka"></a>Step1 下载kafka</h3><p>下载1.1.0版本，在服务器解压</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf kafka_2.11-1.1.0.tgz</span><br><span class="line"><span class="built_in">cd</span> kafka_2.11-1.1.0.tgz</span><br></pre></td></tr></table></figure>
 <p>下载地址如下<br><a href="https://www.apache.org/dyn/closer.cgi?path=/kafka/1.1.0/kafka_2.11-1.1.0.tgz" target="_blank" rel="noopener">kafka download url</a></p>
+<a id="more"></a>
 <h3 id="Step2-启动服务"><a href="#Step2-启动服务" class="headerlink" title="Step2 启动服务"></a>Step2 启动服务</h3><p>运行kafka需要zookeeper的支持，所有需要优先启动zookeeper，如果你没有zookeeper可以使用kafka自带的。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/zookeeper-server-start.sh config/zookeeper.properties</span><br></pre></td></tr></table></figure>
 <p>为了方便我是使用docker进行拉起，仅供测试没有部署zookeeper集群。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name kafka-zookeeper -p 2181:2181 -d zookeeper:latest</span><br></pre></td></tr></table></figure></p>
