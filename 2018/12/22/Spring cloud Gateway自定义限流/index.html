@@ -119,8 +119,8 @@
 <meta property="og:image" content="http://xujin.org/images/mw/gw/token-bucket.jpg">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcly1fr2rzagnmzj318g0ip760.jpg">
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNbRwly1fyforv78mpj318g0hg79z.jpg">
-<meta property="og:image" content="https://guankai.github.io/Users/guankai/Library/Application%20Support/typora-user-images/image-20181221101431565.png">
-<meta property="og:updated_time" content="2018-12-22T10:13:11.376Z">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNbRwly1fyfotrabv6j30oi0xe0vi.jpg">
+<meta property="og:updated_time" content="2018-12-22T10:15:22.164Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="gateway自定义限流">
 <meta name="twitter:description" content="Spring cloud Gateway自定义限流背景产品中使用spring cloud gateway，需要实现根据请求报文中的字段值来实现限流，比如在双11场景下，需要对微信渠道进行限流，每秒不能超过10笔。 方案首先是限流的实现，强大的spring cloud gateway已经为我们提供了一套限流的接口，并且实现了一套基于redis的限流方案，它使用的是令牌桶算法">
@@ -352,7 +352,7 @@
                 
               
 
-              <time title="创建时间：2018-12-22 14:42:08 / 修改时间：18:13:11" itemprop="dateCreated datePublished" datetime="2018-12-22T14:42:08+08:00">2018-12-22</time>
+              <time title="创建时间：2018-12-22 14:42:08 / 修改时间：18:15:22" itemprop="dateCreated datePublished" datetime="2018-12-22T14:42:08+08:00">2018-12-22</time>
             
 
             
@@ -418,7 +418,7 @@
 <p>spring cloud gateway采用异步非阻塞的框架，基于springboot2.0，大量使用了Reactor。后面在实现的时候需要针对这个特性来做相应的coding。</p>
 <p><img src="https://ws2.sinaimg.cn/large/006tNbRwly1fyforv78mpj318g0hg79z.jpg" alt="img"></p>
 <h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="限流"><a href="#限流" class="headerlink" title="限流"></a>限流</h3><p>spring cloud gateway流程如下</p>
-<p><img src="/Users/guankai/Library/Application Support/typora-user-images/image-20181221101431565.png" alt="image-20181221101431565"></p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNbRwly1fyfotrabv6j30oi0xe0vi.jpg" alt="img"></p>
 <p>http请求进入到网关主要经历如下几个阶段</p>
 <ul>
 <li>DispatcherHandler 所有请求的调度器，将请求进行分发</li>
