@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.7.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"guankai.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="spring cloud gateway 动态路由配置动态路由的谓词设置动态路由的谓词 predicates，主要分为以下几个类别：">
+<meta name="keywords" content="spring cloud">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gateway动态路由">
+<meta property="og:url" content="https://guankai.github.io/2018/12/12/spring cloud gateway 动态路由配置/index.html">
+<meta property="og:site_name" content="镜花水月">
+<meta property="og:description" content="spring cloud gateway 动态路由配置动态路由的谓词设置动态路由的谓词 predicates，主要分为以下几个类别：">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://www.iocoder.cn/images/Spring-Cloud-Gateway/2020_02_15/02.png">
+<meta property="og:updated_time" content="2019-01-27T04:32:25.604Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="gateway动态路由">
+<meta name="twitter:description" content="spring cloud gateway 动态路由配置动态路由的谓词设置动态路由的谓词 predicates，主要分为以下几个类别：">
+<meta name="twitter:image" content="http://www.iocoder.cn/images/Spring-Cloud-Gateway/2020_02_15/02.png">
+
+<link rel="canonical" href="https://guankai.github.io/2018/12/12/spring cloud gateway 动态路由配置/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>gateway动态路由 | 镜花水月</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">镜花水月</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/guankai" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://guankai.github.io/2018/12/12/spring cloud gateway 动态路由配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Patrick Guan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="镜花水月">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          gateway动态路由
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-12-12 14:42:08" itemprop="dateCreated datePublished" datetime="2018-12-12T14:42:08+08:00">2018-12-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-01-27 12:32:25" itemprop="dateModified" datetime="2019-01-27T12:32:25+08:00">2019-01-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2018/12/12/spring cloud gateway 动态路由配置/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/12/12/spring cloud gateway 动态路由配置/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="spring-cloud-gateway-动态路由配置"><a href="#spring-cloud-gateway-动态路由配置" class="headerlink" title="spring cloud gateway 动态路由配置"></a>spring cloud gateway 动态路由配置</h2><h3 id="动态路由的谓词设置"><a href="#动态路由的谓词设置" class="headerlink" title="动态路由的谓词设置"></a>动态路由的谓词设置</h3><p>动态路由的谓词 predicates，主要分为以下几个类别：</p>
+<p><img src="http://www.iocoder.cn/images/Spring-Cloud-Gateway/2020_02_15/02.png" alt="img"></p>
+<a id="more"></a>
+<h4 id="Path"><a href="#Path" class="headerlink" title="Path"></a>Path</h4><p>路由匹配，请求path的匹配，动态配置的参数方式如下，构建PredicateDefinition</p>
+<p>对应参数的key值为<code>pattern</code></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"predicates"</span>:[</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>:<span class="string">"Path"</span>,</span><br><span class="line">            <span class="attr">"args"</span>:&#123;</span><br><span class="line">                <span class="attr">"pattern"</span>:<span class="string">"/demo-service/**"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对应源码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> (exchange) -&gt; &#123;</span><br><span class="line">    PathContainer path = PathContainer.parsePath(exchange.getRequest().getURI().getPath());</span><br><span class="line">    <span class="keyword">boolean</span> match = config.pathPattern.matches(path);</span><br><span class="line">    traceMatch(<span class="string">"Pattern"</span>, config.pathPattern.getPatternString(), path, match);</span><br><span class="line">    <span class="keyword">if</span>(match) &#123;</span><br><span class="line">        PathMatchInfo uriTemplateVariables = config.pathPattern.matchAndExtract(path);</span><br><span class="line">        exchange.getAttributes().put(ServerWebExchangeUtils.URI_TEMPLATE_VARIABLES_ATTRIBUTE, uriTemplateVariables);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="Before"><a href="#Before" class="headerlink" title="Before"></a>Before</h4><p>路由匹配：当时间在before配置的时间（zoneTime）之前生效</p>
+<p>对应的参数：<code>datetime</code></p>
+<p>动态配置如下:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"predicates"</span>:[</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>:<span class="string">"Before"</span>,</span><br><span class="line">            <span class="attr">"args"</span>:&#123;</span><br><span class="line">                <span class="attr">"datetime"</span>:<span class="string">"2018-12-12T11:14:03.820+08:00[Asia/Shanghai]"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对应源码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String DATETIME_KEY = <span class="string">"datetime"</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">BeforeRoutePredicateFactory</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(BeforeRoutePredicateFactory.Config.class);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">shortcutFieldOrder</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Collections.singletonList(<span class="string">"datetime"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> Predicate&lt;ServerWebExchange&gt; <span class="title">apply</span><span class="params">(BeforeRoutePredicateFactory.Config config)</span> </span>&#123;</span><br><span class="line">    ZonedDateTime datetime = BetweenRoutePredicateFactory.getZonedDateTime(config.getDatetime());</span><br><span class="line">    <span class="keyword">return</span> (exchange) -&gt; &#123;</span><br><span class="line">        ZonedDateTime now = ZonedDateTime.now();</span><br><span class="line">        <span class="keyword">return</span> now.isBefore(datetime);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="After"><a href="#After" class="headerlink" title="After"></a>After</h4><p>路由匹配：当时间在After配置的时间（zoneTime）之后生效</p>
+<p>对应参数: <code>datetime</code></p>
+<p>动态路由配置：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"predicates"</span>:[</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>:<span class="string">"After"</span>,</span><br><span class="line">            <span class="attr">"args"</span>:&#123;</span><br><span class="line">                <span class="attr">"datetime"</span>:<span class="string">"2018-12-12T11:14:03.820+08:00[Asia/Shanghai]"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对应源码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String DATETIME_KEY = <span class="string">"datetime"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AfterRoutePredicateFactory</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(AfterRoutePredicateFactory.Config.class);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">shortcutFieldOrder</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Collections.singletonList(<span class="string">"datetime"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Predicate&lt;ServerWebExchange&gt; <span class="title">apply</span><span class="params">(AfterRoutePredicateFactory.Config config)</span> </span>&#123;</span><br><span class="line">        ZonedDateTime datetime = BetweenRoutePredicateFactory.getZonedDateTime(config.getDatetime());</span><br><span class="line">        <span class="keyword">return</span> (exchange) -&gt; &#123;</span><br><span class="line">            ZonedDateTime now = ZonedDateTime.now();</span><br><span class="line">            <span class="keyword">return</span> now.isAfter(datetime);</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Between"><a href="#Between" class="headerlink" title="Between"></a>Between</h4><p>路由匹配：当时间在between设置的两个时间点之间，则匹配。</p>
+<p>对应参数 <code>datetime1</code> <code>datetime2</code> </p>
+<p>Datetime1 对应的起始时间</p>
+<p>Datetime2 对应的结束时间</p>
+<p>动态配置：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"predicates"</span>:[</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>:<span class="string">"Between"</span>,</span><br><span class="line">            <span class="attr">"args"</span>:&#123;</span><br><span class="line">                <span class="attr">"datetime1"</span>:<span class="string">"2018-12-12T11:14:03.820+08:00[Asia/Shanghai]"</span>,</span><br><span class="line">                <span class="attr">"datetime2"</span>:<span class="string">"2018-12-12T15:14:03.820+08:00[Asia/Shanghai]"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对应源码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String DATETIME1_KEY = <span class="string">"datetime1"</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String DATETIME2_KEY = <span class="string">"datetime2"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BetweenRoutePredicateFactory</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(BetweenRoutePredicateFactory.Config.class);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">shortcutFieldOrder</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.asList(<span class="keyword">new</span> String[]&#123;<span class="string">"datetime1"</span>, <span class="string">"datetime2"</span>&#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Predicate&lt;ServerWebExchange&gt; <span class="title">apply</span><span class="params">(BetweenRoutePredicateFactory.Config config)</span> </span>&#123;</span><br><span class="line">        ZonedDateTime datetime1 = getZonedDateTime(config.datetime1);</span><br><span class="line">        ZonedDateTime datetime2 = getZonedDateTime(config.datetime2);</span><br><span class="line">        Assert.isTrue(datetime1.isBefore(datetime2), config.datetime1 + <span class="string">" must be before "</span> + config.datetime2);</span><br><span class="line">        <span class="keyword">return</span> (exchange) -&gt; &#123;</span><br><span class="line">            ZonedDateTime now = ZonedDateTime.now();</span><br><span class="line">            <span class="keyword">return</span> now.isAfter(datetime1) &amp;&amp; now.isBefore(datetime2);</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Header"><a href="#Header" class="headerlink" title="Header"></a>Header</h4><p>路由匹配：在http请求头中包含对应的key和value，则匹配</p>
+<p>对应参数：<code>header</code> <code>regexp</code></p>
+<p>header 在Header中设置的key值</p>
+<p>regexp key对应的value，支持正则表达式</p>
+<p>动态配置:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"predicates"</span>:[</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>:<span class="string">"Header"</span>,</span><br><span class="line">            <span class="attr">"args"</span>:&#123;</span><br><span class="line">                <span class="attr">"header"</span>:<span class="string">"version"</span>,</span><br><span class="line">                <span class="attr">"regexp"</span>:<span class="string">"V1.0"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对应源码：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">public static final String HEADER_KEY = "header";</span><br><span class="line">    public static final String REGEXP_KEY = "regexp";</span><br><span class="line"></span><br><span class="line">    public HeaderRoutePredicateFactory() &#123;</span><br><span class="line">        super(HeaderRoutePredicateFactory.Config.class);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public List&lt;String&gt; shortcutFieldOrder() &#123;</span><br><span class="line">        return Arrays.asList(new String[]&#123;"header", "regexp"&#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Predicate&lt;ServerWebExchange&gt; apply(HeaderRoutePredicateFactory.Config config) &#123;</span><br><span class="line">        return (exchange) -&gt; &#123;</span><br><span class="line">            List&lt;String&gt; values = exchange.getRequest().getHeaders().get(config.header);</span><br><span class="line">            if(values != null) &#123;</span><br><span class="line">                Iterator var3 = values.iterator();</span><br><span class="line"></span><br><span class="line">                while(var3.hasNext()) &#123;</span><br><span class="line">                    String value = (String)var3.next();</span><br><span class="line">                    if(value.matches(config.regexp)) &#123;</span><br><span class="line">                        return true;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            return false;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Host"><a href="#Host" class="headerlink" title="Host"></a>Host</h4><p>路由匹配：在http请求头中包含对应的Host信息，则匹配</p>
+<p>对应参数 <code>pattern</code></p>
+<p>pattern 对应host的正则表达式</p>
+<p>动态配置</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"predicates"</span>:[</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>:<span class="string">"Host"</span>,</span><br><span class="line">            <span class="attr">"args"</span>:&#123;</span><br><span class="line">                <span class="attr">"pattern"</span>:<span class="string">"10.88.**"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对应源码</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">private PathMatcher pathMatcher = new AntPathMatcher(".");</span><br><span class="line"></span><br><span class="line">    public HostRoutePredicateFactory() &#123;</span><br><span class="line">        super(HostRoutePredicateFactory.Config.class);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setPathMatcher(PathMatcher pathMatcher) &#123;</span><br><span class="line">        this.pathMatcher = pathMatcher;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public List&lt;String&gt; shortcutFieldOrder() &#123;</span><br><span class="line">        return Collections.singletonList("pattern");</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Predicate&lt;ServerWebExchange&gt; apply(HostRoutePredicateFactory.Config config) &#123;</span><br><span class="line">        return (exchange) -&gt; &#123;</span><br><span class="line">            String host = exchange.getRequest().getHeaders().getFirst("Host");</span><br><span class="line">            return this.pathMatcher.match(config.getPattern(), host);</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h4><p>路由匹配：当请求的Method与配置的method一致，则匹配</p>
+<p>对应参数：<code>method</code></p>
+<p>method就是http标准的method内容如GET POST DELETE等</p>
+<p>动态配置：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"predicates"</span>:[</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>:<span class="string">"Method"</span>,</span><br><span class="line">            <span class="attr">"args"</span>:&#123;</span><br><span class="line">                <span class="attr">"method"</span>:<span class="string">"GET"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对应源码：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public static final String METHOD_KEY = "method";</span><br><span class="line"></span><br><span class="line">    public MethodRoutePredicateFactory() &#123;</span><br><span class="line">        super(MethodRoutePredicateFactory.Config.class);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public List&lt;String&gt; shortcutFieldOrder() &#123;</span><br><span class="line">        return Arrays.asList(new String[]&#123;"method"&#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Predicate&lt;ServerWebExchange&gt; apply(MethodRoutePredicateFactory.Config config) &#123;</span><br><span class="line">        return (exchange) -&gt; &#123;</span><br><span class="line">            HttpMethod requestMethod = exchange.getRequest().getMethod();</span><br><span class="line">            return requestMethod == config.getMethod();</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h4><p>路由匹配：当请求的cookie中包含有对应的key和value，则匹配</p>
+<p>对应参数：<code>name</code> <code>regexp</code></p>
+<p>name cookie中对应的key值</p>
+<p>regexp 与cookie的key对应的value，支持正则表达式</p>
+<p>动态配置：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"predicates"</span>:[</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>:<span class="string">"Cookie"</span>,</span><br><span class="line">            <span class="attr">"args"</span>:&#123;</span><br><span class="line">                <span class="attr">"name"</span>:<span class="string">"patrick"</span>,</span><br><span class="line">                <span class="attr">"regexp"</span>: <span class="string">"123"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>相关源码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String NAME_KEY = <span class="string">"name"</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String REGEXP_KEY = <span class="string">"regexp"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CookieRoutePredicateFactory</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(CookieRoutePredicateFactory.Config.class);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">shortcutFieldOrder</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.asList(<span class="keyword">new</span> String[]&#123;<span class="string">"name"</span>, <span class="string">"regexp"</span>&#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Predicate&lt;ServerWebExchange&gt; <span class="title">apply</span><span class="params">(CookieRoutePredicateFactory.Config config)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (exchange) -&gt; &#123;</span><br><span class="line">            List&lt;HttpCookie&gt; cookies = (List)exchange.getRequest().getCookies().get(config.name);</span><br><span class="line">            <span class="keyword">if</span>(cookies == <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                Iterator var3 = cookies.iterator();</span><br><span class="line"></span><br><span class="line">                HttpCookie cookie;</span><br><span class="line">                <span class="keyword">do</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span>(!var3.hasNext()) &#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    cookie = (HttpCookie)var3.next();</span><br><span class="line">                &#125; <span class="keyword">while</span>(!cookie.getValue().matches(config.regexp));</span><br><span class="line"></span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Query"><a href="#Query" class="headerlink" title="Query"></a>Query</h4><p>路由匹配：当请求的url对应的parameter的key value与设置的一一对应，则匹配</p>
+<p>参数： <code>param</code> <code>regexp</code></p>
+<p>Param url参数的key值</p>
+<p>regexp url的key对应的value值，可以为正则表达式</p>
+<p>当时配置多个Query的时候，是&amp;运算，如果key不一致，gateway会提示500错，如果value不一致，则提示404错误</p>
+<p>动态配置：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"predicates"</span>:[</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>:<span class="string">"Query"</span>,</span><br><span class="line">            <span class="attr">"args"</span>:&#123;</span><br><span class="line">                <span class="attr">"param"</span>:<span class="string">"patrick"</span>,</span><br><span class="line">                <span class="attr">"regexp"</span>: <span class="string">"123"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>:<span class="string">"Query"</span>,</span><br><span class="line">            <span class="attr">"args"</span>:&#123;</span><br><span class="line">                <span class="attr">"param"</span>:<span class="string">"haha"</span>,</span><br><span class="line">                <span class="attr">"regexp"</span>: <span class="string">"hehe"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>相关源码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String PARAM_KEY = <span class="string">"param"</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String REGEXP_KEY = <span class="string">"regexp"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">QueryRoutePredicateFactory</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(QueryRoutePredicateFactory.Config.class);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">shortcutFieldOrder</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.asList(<span class="keyword">new</span> String[]&#123;<span class="string">"param"</span>, <span class="string">"regexp"</span>&#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Predicate&lt;ServerWebExchange&gt; <span class="title">apply</span><span class="params">(QueryRoutePredicateFactory.Config config)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (exchange) -&gt; &#123;</span><br><span class="line">            <span class="keyword">if</span>(!StringUtils.hasText(config.regexp)) &#123;</span><br><span class="line">                <span class="keyword">return</span> exchange.getRequest().getQueryParams().containsKey(config.param);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                List&lt;String&gt; values = (List)exchange.getRequest().getQueryParams().get(config.param);</span><br><span class="line">                Iterator var3 = values.iterator();</span><br><span class="line"></span><br><span class="line">                String value;</span><br><span class="line">                <span class="keyword">do</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span>(!var3.hasNext()) &#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    value = (String)var3.next();</span><br><span class="line">                &#125; <span class="keyword">while</span>(!value.matches(config.regexp));</span><br><span class="line"></span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="RemoteAddr"><a href="#RemoteAddr" class="headerlink" title="RemoteAddr"></a>RemoteAddr</h4><p>路由匹配：当客户端的ip与设置的ip段一致，则匹配</p>
+<p>参数 <code>sources</code></p>
+<p>sources  配置客户端的ip地址段 如192.168.1.1/24</p>
+<p>动态配置：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"predicates"</span>:[</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>:<span class="string">"RemoteAddr"</span>,</span><br><span class="line">            <span class="attr">"args"</span>:&#123;</span><br><span class="line">                <span class="attr">"sources"</span>:<span class="string">"192.168.1.1/24"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对应源码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Predicate&lt;ServerWebExchange&gt; <span class="title">apply</span><span class="params">(RemoteAddrRoutePredicateFactory.Config config)</span> </span>&#123;</span><br><span class="line">       List&lt;IpSubnetFilterRule&gt; sources = <span class="keyword">this</span>.convert(config.sources);</span><br><span class="line">       <span class="keyword">return</span> (exchange) -&gt; &#123;</span><br><span class="line">           InetSocketAddress remoteAddress = config.remoteAddressResolver.resolve(exchange);</span><br><span class="line">           <span class="keyword">if</span>(remoteAddress != <span class="keyword">null</span>) &#123;</span><br><span class="line">               String hostAddress = remoteAddress.getAddress().getHostAddress();</span><br><span class="line">               String host = exchange.getRequest().getURI().getHost();</span><br><span class="line">               <span class="keyword">if</span>(log.isDebugEnabled() &amp;&amp; !hostAddress.equals(host)) &#123;</span><br><span class="line">                   log.debug(<span class="string">"Remote addresses didn't match "</span> + hostAddress + <span class="string">" != "</span> + host);</span><br><span class="line">               &#125;</span><br><span class="line"></span><br><span class="line">               Iterator var6 = sources.iterator();</span><br><span class="line"></span><br><span class="line">               <span class="keyword">while</span>(var6.hasNext()) &#123;</span><br><span class="line">                   IpSubnetFilterRule source = (IpSubnetFilterRule)var6.next();</span><br><span class="line">                   <span class="keyword">if</span>(source.matches(remoteAddress)) &#123;</span><br><span class="line">                       <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                   &#125;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">           <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">       &#125;;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="动态路由gatewayFilter设置"><a href="#动态路由gatewayFilter设置" class="headerlink" title="动态路由gatewayFilter设置"></a>动态路由gatewayFilter设置</h3><h4 id="AddRequestHeader"><a href="#AddRequestHeader" class="headerlink" title="AddRequestHeader"></a>AddRequestHeader</h4><p>过滤器功能：网关为请求的header添加key value</p>
+<p>参数 <code>name</code> <code>value</code></p>
+<p>name 添加header的key</p>
+<p>value 添加header对应key的value</p>
+<p>动态配置：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"filters"</span>:[</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>:<span class="string">"AddRequestHeader"</span>,</span><br><span class="line">            <span class="attr">"args"</span>:&#123;</span><br><span class="line">                <span class="attr">"name"</span>:<span class="string">"patrick"</span>,</span><br><span class="line">                <span class="attr">"value"</span>:<span class="string">"bar"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="RemoveRequestHeader"><a href="#RemoveRequestHeader" class="headerlink" title="RemoveRequestHeader"></a>RemoveRequestHeader</h4><p>过滤器功能：网关为请求的header抹去key value</p>
+<p>参数 <code>name</code></p>
+<p>name 需要抹去的header中的key</p>
+<p>动态配置：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"filters"</span>:[</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>:<span class="string">"RemoveRequestHeader"</span>,</span><br><span class="line">            <span class="attr">"args"</span>:&#123;</span><br><span class="line">                <span class="attr">"name"</span>:<span class="string">"patrick"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="RemoveResponseHeader"><a href="#RemoveResponseHeader" class="headerlink" title="RemoveResponseHeader"></a>RemoveResponseHeader</h4><p>过滤器功能：网关将返回的header的头remove对应的key</p>
+<p>参数：<code>name</code></p>
+<p>name 需要抹去的header的key</p>
+<p>动态配置:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"filters"</span>:[</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>:<span class="string">"RemoveResponseHeader"</span>,</span><br><span class="line">            <span class="attr">"args"</span>:&#123;</span><br><span class="line">                <span class="attr">"name"</span>:<span class="string">"patrick"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="AddResponseHeader"><a href="#AddResponseHeader" class="headerlink" title="AddResponseHeader"></a>AddResponseHeader</h4><p>过滤器功能：网关添加ResponseHeader的key和value</p>
+<p>参数：<code>name</code> <code>value</code></p>
+<p>name 需要添加在response header的key</p>
+<p>value 需要添加在response header的key对应的value</p>
+<p>动态配置：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"filters"</span>:[</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>:<span class="string">"AddResponseHeader"</span>,</span><br><span class="line">            <span class="attr">"args"</span>:&#123;</span><br><span class="line">                <span class="attr">"name"</span>:<span class="string">"patrick"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="SetResponseHeader"><a href="#SetResponseHeader" class="headerlink" title="SetResponseHeader"></a>SetResponseHeader</h4><p>过滤器功能：网关设置ResponseHeader的key和value</p>
+<p>参数 <code>name</code> <code>value</code></p>
+<p>name 需要设置在response header的key</p>
+<p>value 需要设置在response header的key对应的value</p>
+<p>与addResponseHeader的区别，应用官网的原话</p>
+<blockquote>
+<p>This GatewayFilter replaces all headers with the given name, rather than adding. So if the downstream server responded with a <code>X-Response-Foo:1234</code>, this would be replaced with <code>X-Response-Foo:Bar</code>, which is what the gateway client would receive.</p>
+</blockquote>
+<p>重置指定的key value</p>
+<p>动态配置：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"filters"</span>:[</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>:<span class="string">"SetResponseHeader"</span>,</span><br><span class="line">            <span class="attr">"args"</span>:&#123;</span><br><span class="line">                <span class="attr">"name"</span>:<span class="string">"patrick"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="AddRequestParameter"><a href="#AddRequestParameter" class="headerlink" title="AddRequestParameter"></a>AddRequestParameter</h4><p>过滤器功能：网关给请求的url中添加param</p>
+<p>参数: <code>name</code> <code>value</code></p>
+<p>动态配置：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"filters"</span>:[</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>:<span class="string">"AddRequestParameter"</span>,</span><br><span class="line">            <span class="attr">"args"</span>:&#123;</span><br><span class="line">                <span class="attr">"name"</span>:<span class="string">"patrick"</span>,</span><br><span class="line">                <span class="attr">"value"</span>: <span class="string">"test"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="RewritePath"><a href="#RewritePath" class="headerlink" title="RewritePath"></a>RewritePath</h4><p>过滤器功能：应用请求通过predicate匹配到对应的route后，需要将url进行替换，发送到指定的后端模块</p>
+<p>参数: <code>regexp</code> <code>replacement</code></p>
+<p>regexp  需要替换的path的正则表达式</p>
+<p>replacement 替换的内容的正则</p>
+<p>动态配置：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"name"</span>:<span class="string">"RewritePath"</span>,</span><br><span class="line">    <span class="attr">"args"</span>:&#123;</span><br><span class="line">        <span class="attr">"regexp"</span>:<span class="string">"/demo-service/(?&lt;remaining&gt;.*)"</span>,</span><br><span class="line">        <span class="attr">"replacement"</span>:<span class="string">"/$&#123;remaining&#125;"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="PrefixPath"><a href="#PrefixPath" class="headerlink" title="PrefixPath"></a>PrefixPath</h4><p>过滤器功能：请求到具体服务的path时，给path前面加上前缀 prefix</p>
+<p>参数：<code>prefix</code></p>
+<p>prefix 给路由目标路径前添加前缀</p>
+<blockquote>
+<p>This will prefix <code>/mypath</code> to the path of all matching requests. So a request to <code>/hello</code>, would be sent to <code>/mypath/hello</code>.</p>
+</blockquote>
+<p>动态配置:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"filters"</span>:[</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>:<span class="string">"PrefixPath"</span>,</span><br><span class="line">            <span class="attr">"args"</span>:&#123;</span><br><span class="line">                <span class="attr">"prefix"</span>:<span class="string">"/mypath"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="SetPath"><a href="#SetPath" class="headerlink" title="SetPath"></a>SetPath</h4><p>过滤器功能：请求到具体服务的path时，通过template对应的内容对整个uri进行替换</p>
+<p>参数：<code>template</code></p>
+<p>template 需要替换掉uri的内容模版</p>
+<blockquote>
+<p>For a request path of <code>/foo/bar</code>, this will set the path to <code>/bar</code> before making the downstream request.</p>
+</blockquote>
+<p>动态配置：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"filters"</span>:[</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>:<span class="string">"SetPath"</span>,</span><br><span class="line">            <span class="attr">"args"</span>:&#123;</span><br><span class="line">                <span class="attr">"template"</span>:<span class="string">"/mypath"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="RedirectTo"><a href="#RedirectTo" class="headerlink" title="RedirectTo"></a>RedirectTo</h4><p>过滤器功能：设置跳转到三方系统，http的状态码必须为3xx系列。</p>
+<p>参数：<code>status</code> <code>url</code></p>
+<p>status 跳转的http状态码，必须是3xx，比如302</p>
+<p>url 跳转的地址</p>
+<p>动态配置：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"filters"</span>:[</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>:<span class="string">"RedirectTo"</span>,</span><br><span class="line">            <span class="attr">"args"</span>:&#123;</span><br><span class="line">                <span class="attr">"status"</span>: <span class="number">302</span>,</span><br><span class="line">                <span class="attr">"url"</span>: <span class="string">"http://www.baidu.com"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.jpg" alt="Patrick Guan 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpg" alt="Patrick Guan 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/spring-cloud/" rel="tag"># spring cloud</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/06/29/ELK说明/" rel="prev" title="ELK说明">
+      <i class="fa fa-chevron-left"></i> ELK说明
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/12/22/Spring cloud Gateway自定义限流/" rel="next" title="gateway自定义限流">
+      gateway自定义限流 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-cloud-gateway-动态路由配置"><span class="nav-number">1.</span> <span class="nav-text">spring cloud gateway 动态路由配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#动态路由的谓词设置"><span class="nav-number">1.1.</span> <span class="nav-text">动态路由的谓词设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Path"><span class="nav-number">1.1.1.</span> <span class="nav-text">Path</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Before"><span class="nav-number">1.1.2.</span> <span class="nav-text">Before</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#After"><span class="nav-number">1.1.3.</span> <span class="nav-text">After</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Between"><span class="nav-number">1.1.4.</span> <span class="nav-text">Between</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Header"><span class="nav-number">1.1.5.</span> <span class="nav-text">Header</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Host"><span class="nav-number">1.1.6.</span> <span class="nav-text">Host</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Method"><span class="nav-number">1.1.7.</span> <span class="nav-text">Method</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Cookie"><span class="nav-number">1.1.8.</span> <span class="nav-text">Cookie</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Query"><span class="nav-number">1.1.9.</span> <span class="nav-text">Query</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RemoteAddr"><span class="nav-number">1.1.10.</span> <span class="nav-text">RemoteAddr</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态路由gatewayFilter设置"><span class="nav-number">1.2.</span> <span class="nav-text">动态路由gatewayFilter设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AddRequestHeader"><span class="nav-number">1.2.1.</span> <span class="nav-text">AddRequestHeader</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RemoveRequestHeader"><span class="nav-number">1.2.2.</span> <span class="nav-text">RemoveRequestHeader</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RemoveResponseHeader"><span class="nav-number">1.2.3.</span> <span class="nav-text">RemoveResponseHeader</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AddResponseHeader"><span class="nav-number">1.2.4.</span> <span class="nav-text">AddResponseHeader</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SetResponseHeader"><span class="nav-number">1.2.5.</span> <span class="nav-text">SetResponseHeader</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AddRequestParameter"><span class="nav-number">1.2.6.</span> <span class="nav-text">AddRequestParameter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RewritePath"><span class="nav-number">1.2.7.</span> <span class="nav-text">RewritePath</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PrefixPath"><span class="nav-number">1.2.8.</span> <span class="nav-text">PrefixPath</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SetPath"><span class="nav-number">1.2.9.</span> <span class="nav-text">SetPath</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RedirectTo"><span class="nav-number">1.2.10.</span> <span class="nav-text">RedirectTo</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Patrick Guan"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Patrick Guan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/guankai" title="GitHub → https://github.com/guankai" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:guankai1984@gmail.com" title="E-Mail → mailto:guankai1984@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="patrick"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Patrick Guan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'kjyTTPEU9zwsMI3pJvknQKBB-gzGzoHsz',
+      appKey     : 'A1u5MjdMlxbOLCv24G8Y0PLX',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

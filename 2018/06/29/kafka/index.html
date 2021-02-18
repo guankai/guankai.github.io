@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.7.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"guankai.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Kafka部署手册Step1 下载kafka下载1.1.0版本，在服务器解压 12tar -zxvf kafka_2.11-1.1.0.tgzcd kafka_2.11-1.1.0.tgz 下载地址如下kafka download url">
+<meta name="keywords" content="kafka">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kafka">
+<meta property="og:url" content="https://guankai.github.io/2018/06/29/kafka/index.html">
+<meta property="og:site_name" content="镜花水月">
+<meta property="og:description" content="Kafka部署手册Step1 下载kafka下载1.1.0版本，在服务器解压 12tar -zxvf kafka_2.11-1.1.0.tgzcd kafka_2.11-1.1.0.tgz 下载地址如下kafka download url">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://guankai.github.io/images/006tNbRwly1fwou1h7ueqj319y074qbn.jpg">
+<meta property="og:image" content="https://guankai.github.io/images/006tNbRwly1fwou28laspj319w02adi2.jpg">
+<meta property="og:image" content="https://guankai.github.io/images/006tNbRwly1fwou2ryn6bj31a003adiy.jpg">
+<meta property="og:image" content="https://guankai.github.io/images/006tNbRwly1fwou3998swj319c0natdb.jpg">
+<meta property="og:image" content="https://guankai.github.io/images/006tNbRwly1fwou3sson0j31c80ssn4v.jpg">
+<meta property="og:image" content="https://guankai.github.io/images/006tNbRwly1fwou43vq5ej319w06cq5n.jpg">
+<meta property="og:image" content="https://guankai.github.io/images/006tNbRwly1fwou80s0crj31a40awgs7.jpg">
+<meta property="og:image" content="https://guankai.github.io/images/006tNbRwly1fwou97i58dj319w04sn1q.jpg">
+<meta property="og:image" content="https://guankai.github.io/images/006tNbRwly1fwoua3g61vj319y052dj9.jpg">
+<meta property="og:image" content="https://guankai.github.io/images/006tNbRwly1fwouah7n4qj319y07wjxz.jpg">
+<meta property="og:image" content="https://guankai.github.io/images/006tNbRwly1fwouaxm5mfj31a20kyn9r.jpg">
+<meta property="og:image" content="https://guankai.github.io/images/006tNbRwly1fwoubam2rhj319y04wjvw.jpg">
+<meta property="og:image" content="https://guankai.github.io/images/006tNbRwly1fwoubqli8dj319w08awlj.jpg">
+<meta property="og:updated_time" content="2019-04-24T10:04:17.767Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kafka">
+<meta name="twitter:description" content="Kafka部署手册Step1 下载kafka下载1.1.0版本，在服务器解压 12tar -zxvf kafka_2.11-1.1.0.tgzcd kafka_2.11-1.1.0.tgz 下载地址如下kafka download url">
+<meta name="twitter:image" content="https://guankai.github.io/images/006tNbRwly1fwou1h7ueqj319y074qbn.jpg">
+
+<link rel="canonical" href="https://guankai.github.io/2018/06/29/kafka/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>kafka | 镜花水月</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">镜花水月</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/guankai" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://guankai.github.io/2018/06/29/kafka/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Patrick Guan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="镜花水月">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          kafka
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-06-29 14:42:08" itemprop="dateCreated datePublished" datetime="2018-06-29T14:42:08+08:00">2018-06-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-04-24 18:04:17" itemprop="dateModified" datetime="2019-04-24T18:04:17+08:00">2019-04-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2018/06/29/kafka/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/06/29/kafka/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Kafka部署手册"><a href="#Kafka部署手册" class="headerlink" title="Kafka部署手册"></a>Kafka部署手册</h2><h3 id="Step1-下载kafka"><a href="#Step1-下载kafka" class="headerlink" title="Step1 下载kafka"></a>Step1 下载kafka</h3><p>下载1.1.0版本，在服务器解压</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf kafka_2.11-1.1.0.tgz</span><br><span class="line"><span class="built_in">cd</span> kafka_2.11-1.1.0.tgz</span><br></pre></td></tr></table></figure>
+<p>下载地址如下<br><a href="https://www.apache.org/dyn/closer.cgi?path=/kafka/1.1.0/kafka_2.11-1.1.0.tgz" target="_blank" rel="noopener">kafka download url</a></p>
+<a id="more"></a>
+<h3 id="Step2-启动服务"><a href="#Step2-启动服务" class="headerlink" title="Step2 启动服务"></a>Step2 启动服务</h3><p>运行kafka需要zookeeper的支持，所有需要优先启动zookeeper，如果你没有zookeeper可以使用kafka自带的。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/zookeeper-server-start.sh config/zookeeper.properties</span><br></pre></td></tr></table></figure>
+<p>为了方便我是使用docker进行拉起，仅供测试没有部署zookeeper集群。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name kafka-zookeeper -p 2181:2181 -d zookeeper:latest</span><br></pre></td></tr></table></figure></p>
+<p>下面启动kafka服务<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-server-start.sh config/server.properties</span><br></pre></td></tr></table></figure></p>
+<p>执行命令后，kafka启动<br><img src="/images/006tNbRwly1fwou1h7ueqj319y074qbn.jpg" alt=""></p>
+<h3 id="创建一个Topic"><a href="#创建一个Topic" class="headerlink" title="创建一个Topic"></a>创建一个Topic</h3><p>创建一个名为dcits0的topic</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-topics.sh --create --zookeeper 10.88.2.110:2181 --replication-factor 1 --partitions 1 --topic dcits0</span><br></pre></td></tr></table></figure>
+<p>这里面只选择了一个分区和一个备份，这里只用一个备份的原因是我们目前只有一个broker在运行中。</p>
+<p>创建成功后，我们通过命令<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-topics.sh --list --zookeeper 10.88.2.110:2181</span><br></pre></td></tr></table></figure></p>
+<p>可以看到我们刚刚创建的topic</p>
+<p><img src="/images/006tNbRwly1fwou28laspj319w02adi2.jpg" alt=""></p>
+<p>同时我们还可以使用命令来查看这个topic的详情<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-topics.sh --describe --zookeeper 10.88.2.110:2181 --topic dcits0</span><br></pre></td></tr></table></figure></p>
+<p>结果为</p>
+<p><img src="/images/006tNbRwly1fwou2ryn6bj31a003adiy.jpg" alt=""></p>
+<p>我们可以看到只有一个备份副本以及一个partition，由于在<code>server.properties</code>中默认的broker.id=0，这里<code>leader</code>就是这个broker0，同时备份的<code>replicas</code>列表也只有他自己，<code>Isr</code>表示正在同步备份的节点，同样也只有他自己。</p>
+<p>刚好在这里说下在命令中出现的几个概念：</p>
+<p><code>--replication-factor</code></p>
+<p>这个参数是针对partition级别的，kafka通过创建topic时可以通过–replication-factor配置partition副本数。配置副本之后,每个partition都有一个唯一的leader，有0个或多个follower。<br>一般情况下partition的数量大于等于broker的数量，并且所有partition的leader均匀分布在broker上。</p>
+<p><code>--partitions</code></p>
+<p><code>partition</code>是kafka里面的一个重要概念，这里就多说几句。</p>
+<p>partition是topic物理上的分组。每个topic包含一个或多个partition，创建topic时可指定parition数量。每个partition是一个有序的队列，对应于一个文件夹，该文件夹下存储该partition的数据和索引文件。在发送一条消息时，生产者可以指定这条消息的key和分区机制来发送到不同的分区。</p>
+<p><img src="/images/006tNbRwly1fwou3998swj319c0natdb.jpg" alt=""></p>
+<p>每个parition都是一个有序的，不可修改的消息队列，也正因为它是顺序写入所以才造就了kafka的大吞吐的能力。</p>
+<p><code>partition内部有序</code></p>
+<p>Kafka仅仅提供提供partition之内的消息的全局有序，在不同的partition之间不能担保。partition的消息有序性加上可以按照指定的key划分消息的partition，这基本上满足了大部分应用的需求。如果你必须要实现一个全局有序的消息队列，那么可以采用Topic只划分1个partition来实现。但是这就意味着你的每个消费组只能有唯一的一个消费者进程。</p>
+<p>关于他们的关系，下面这张图应该表达的更加明确一些</p>
+<p><img src="/images/006tNbRwly1fwou3sson0j31c80ssn4v.jpg" alt=""></p>
+<h3 id="Step4-发送消息"><a href="#Step4-发送消息" class="headerlink" title="Step4 发送消息"></a>Step4 发送消息</h3><p>发送消息可以使用kafka官方提供的脚本，同时也可以自己通过kafka提供的各种语言的客户端发送消息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-producer.sh --broker-list 10.88.2.110:9092 --topic dcits0</span><br></pre></td></tr></table></figure>
+<p>使用脚本进入console交互页面，输入要发送的消息</p>
+<p><img src="/images/006tNbRwly1fwou43vq5ej319w06cq5n.jpg" alt=""></p>
+<h3 id="Step5-消费消息"><a href="#Step5-消费消息" class="headerlink" title="Step5 消费消息"></a>Step5 消费消息</h3><p>同样发送消息可以使用kafka官方提供的脚本，脚本只是一个验证，在正式环境还是需要使用其提供的客户端，毕竟涉及到多个消费者同时消费消息的场景</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-consumer.sh --zookeeper 10.88.2.110:2181 --topic dcits0 --from-beginning</span><br></pre></td></tr></table></figure>
+<p> 可以该topic保留的从头开始数据，一般的客户端都会记录offset（偏移量），不会重复消费消息。</p>
+<p>执行该命令后可以看到之前写入的两条记录</p>
+<p><img src="/images/006tNbRwly1fwou80s0crj31a40awgs7.jpg" alt=""></p>
+<h3 id="Step6-集群部署"><a href="#Step6-集群部署" class="headerlink" title="Step6 集群部署"></a>Step6 集群部署</h3><p>kafka只有一个broker的时候，无法体现它强大的能力，所以需要多拉起几个broker，组成集群</p>
+<p>由于条件有限，我只能在一个虚拟机上部署3个broker，正式环境中，我们应该把节点分散在不同的机器上，一方面是为了某一个节点物理宕机可以保证集群不受影响，另一方面是由于kafka对IO的要求很高。</p>
+<p>首先为新的broker准备配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp config/server.properties config/server1.properties</span><br><span class="line">cp config/server.properties config/server2.properties</span><br></pre></td></tr></table></figure>
+<p>编辑文件这两个文件主要设置以下的参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">config/server1.properties</span><br><span class="line">	broker.id=1</span><br><span class="line">	listeners=PLAINTEXT://:9093</span><br><span class="line">	log.dir=/tmp/kafka-1-log</span><br><span class="line">config/server2.properties</span><br><span class="line">	broker.id=2</span><br><span class="line">	listeners=PLAINTEXT://:9094</span><br><span class="line">	log.dir=/tmp/kafka-2-log</span><br></pre></td></tr></table></figure>
+<p>其中broker.id是集群中每个节点的唯一标识</p>
+<p>通过下面命令来启动两个新的broker，server.properties里面的zookeeper.connect参数指向的是localhost:2181，所以此处不用再做修改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/bin/kafka-server-start.sh config/server1.properties &amp;</span><br><span class="line">/bin/kafka-server-start.sh config/server2.properties &amp;</span><br></pre></td></tr></table></figure>
+<p>接着创建一个新的topic，设置partition为1，其备份数为3<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/kafka-topics.sh --create --zookeeper 10.88.2.110:2181 --replication-factor 3 --partitions 1 --topic my-topic</span><br></pre></td></tr></table></figure></p>
+<p>创建完成后，我们来看下集群的详情是什么情况<br><img src="/images/006tNbRwly1fwou97i58dj319w04sn1q.jpg" alt=""><br>我们可以ReplicationFactor数量是3，其中topic的partition的leader是在broker 0上，备份的partition有0，1，2，同步备份的也是0，1，2</p>
+<p>下面我们来尝试以下集群的容错</p>
+<p>首先给topic写入数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-producer.sh --broker-list 10.88.2.110:9092 --topic dcits-topic</span><br></pre></td></tr></table></figure>
+<p><img src="/images/006tNbRwly1fwoua3g61vj319y052dj9.jpg" alt=""></p>
+<p>我们通过脚本消费该信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-consumer.sh --zookeeper 10.88.2.110:2181 --topic dcits-topic --from-beginning</span><br></pre></td></tr></table></figure>
+<p>可以获取到对应的信息</p>
+<p><img src="/images/006tNbRwly1fwouah7n4qj319y07wjxz.jpg" alt=""></p>
+<p>接着我们把刚刚写入的broker停掉</p>
+<p><img src="/images/006tNbRwly1fwouaxm5mfj31a20kyn9r.jpg" alt=""></p>
+<p>这个时候我们在看下这个topic的状态</p>
+<p><img src="/images/006tNbRwly1fwoubam2rhj319y04wjvw.jpg" alt=""></p>
+<p>由于broker 0已经停掉了，所以Irs同步备份的节点只剩下1，2。同时之前做leader的0也变成了1</p>
+<p>这时候我们再从topic中消费消息</p>
+<p><img src="/images/006tNbRwly1fwoubqli8dj319w08awlj.jpg" alt=""></p>
+<p>依然可以获取到，可见集群的容错。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.jpg" alt="Patrick Guan 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpg" alt="Patrick Guan 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/kafka/" rel="tag"># kafka</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2018/06/29/ELK说明/" rel="next" title="ELK说明">
+      ELK说明 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Kafka部署手册"><span class="nav-number">1.</span> <span class="nav-text">Kafka部署手册</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Step1-下载kafka"><span class="nav-number">1.1.</span> <span class="nav-text">Step1 下载kafka</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step2-启动服务"><span class="nav-number">1.2.</span> <span class="nav-text">Step2 启动服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个Topic"><span class="nav-number">1.3.</span> <span class="nav-text">创建一个Topic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step4-发送消息"><span class="nav-number">1.4.</span> <span class="nav-text">Step4 发送消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step5-消费消息"><span class="nav-number">1.5.</span> <span class="nav-text">Step5 消费消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step6-集群部署"><span class="nav-number">1.6.</span> <span class="nav-text">Step6 集群部署</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Patrick Guan"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Patrick Guan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/guankai" title="GitHub → https://github.com/guankai" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:guankai1984@gmail.com" title="E-Mail → mailto:guankai1984@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="patrick"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Patrick Guan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'kjyTTPEU9zwsMI3pJvknQKBB-gzGzoHsz',
+      appKey     : 'A1u5MjdMlxbOLCv24G8Y0PLX',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
